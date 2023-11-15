@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import LittleLoading from "../reuseables/little-loading";
 import arrow_img from "../../asset/images/make-lead/arrow-up.svg";
 import cross_icon from "../../asset/images/make-lead/cross-icon.svg";
+import { DataContext } from "../data/datacontext";
+import CreateSenario from "./create-senario/create-senario";
+import Senarios from "./seanrios/senarios";
+import LeadSources from "./lead-sources/lead-sources";
+import CreateLeadSource from "./create-lead-source/creacte-lead-source";
+import Formulars from "./formulars/formulars";
+import CreateFormular from "./create-formular/create-formular";
 const MakeLeadPackPage = () => {
+  const { user, senarios } = useContext(DataContext);
   const [pop_up, set_pop_up] = useState(false);
   const [choose_box, set_choose_box] = useState(false);
   const handle_choose_box = (entry) => {
@@ -91,36 +99,7 @@ const MakeLeadPackPage = () => {
             <span className="plus-wrapper">+</span>
             <span className="btn-text">ساخت لید سورس جدید</span>
           </span>
-          {choose_box === "lead" ? (
-            <div className="choose-box-item">
-              <div className="search-choose-item">
-                <input type="text" placeholder="جستجو" />
-              </div>
-              <div className="choose-items">
-                <span className="choose-item">لید سورس ۱</span>
-                <span className="choose-item">لید سورس ۲</span>
-                <span className="choose-item">لید سورس ۳</span>
-                <span className="choose-item">لید سورس ۴</span>
-                <span className="choose-item">لید سورس ۵</span>
-                <span className="choose-item">لید سورس ۶</span>
-                <span className="choose-item">لید سورس ۷</span>
-                <span className="choose-item">لید سورس ۸</span>
-                <span className="choose-item">لید سورس ۹</span>
-                <span className="choose-item">لید سورس ۱۰</span>
-                <span className="choose-item">لید سورس ۱۱</span>
-                <span className="choose-item">لید سورس ۱۲</span>
-                <span className="choose-item">لید سورس ۱۳</span>
-                <span className="choose-item">لید سورس ۱۴</span>
-                <span className="choose-item">لید سورس ۱۵</span>
-                <span className="choose-item">لید سورس ۱۶</span>
-                <span className="choose-item">لید سورس ۱۷</span>
-                <span className="choose-item">لید سورس ۱۸</span>
-                <span className="choose-item">لید سورس ۱۹</span>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          {choose_box === "lead" ? <LeadSources /> : <></>}
         </div>
         <div className="input-wrapper">
           <span className="input-title">سناریوی تماس</span>
@@ -142,36 +121,7 @@ const MakeLeadPackPage = () => {
             <span className="plus-wrapper">+</span>
             <span className="btn-text">ساخت سناریوی جدید</span>
           </span>
-          {choose_box === "senario" ? (
-            <div className="choose-box-item">
-              <div className="search-choose-item">
-                <input type="text" placeholder="جستجو" />
-              </div>
-              <div className="choose-items">
-                <span className="choose-item">سناریو تماس ۱</span>
-                <span className="choose-item">سناریو تماس ۲</span>
-                <span className="choose-item">سناریو تماس ۳</span>
-                <span className="choose-item">سناریو تماس ۴</span>
-                <span className="choose-item">سناریو تماس ۵</span>
-                <span className="choose-item">سناریو تماس ۶</span>
-                <span className="choose-item">سناریو تماس ۷</span>
-                <span className="choose-item">سناریو تماس ۸</span>
-                <span className="choose-item">سناریو تماس ۹</span>
-                <span className="choose-item">سناریو تماس ۱۰</span>
-                <span className="choose-item">سناریو تماس ۱۱</span>
-                <span className="choose-item">سناریو تماس ۱۲</span>
-                <span className="choose-item">سناریو تماس ۱۳</span>
-                <span className="choose-item">سناریو تماس ۱۴</span>
-                <span className="choose-item">سناریو تماس ۱۵</span>
-                <span className="choose-item">سناریو تماس ۱۶</span>
-                <span className="choose-item">سناریو تماس ۱۷</span>
-                <span className="choose-item">سناریو تماس ۱۸</span>
-                <span className="choose-item">سناریو تماس ۱۹</span>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          {choose_box === "senario" ? <Senarios /> : <></>}
         </div>
         <div className="input-wrapper">
           <span className="input-title">فرمول پورسانت</span>
@@ -193,36 +143,7 @@ const MakeLeadPackPage = () => {
             <span className="plus-wrapper">+</span>
             <span className="btn-text">ساخت فرمول پورسانت</span>
           </span>
-          {choose_box === "formular" ? (
-            <div className="choose-box-item">
-              <div className="search-choose-item">
-                <input type="text" placeholder="جستجو" />
-              </div>
-              <div className="choose-items">
-                <span className="choose-item">فرمول ۱</span>
-                <span className="choose-item">فرمول ۲</span>
-                <span className="choose-item">فرمول ۳</span>
-                <span className="choose-item">فرمول ۴</span>
-                <span className="choose-item">فرمول ۵</span>
-                <span className="choose-item">فرمول ۶</span>
-                <span className="choose-item">فرمول ۷</span>
-                <span className="choose-item">فرمول ۸</span>
-                <span className="choose-item">فرمول ۹</span>
-                <span className="choose-item">فرمول ۱۰</span>
-                <span className="choose-item">فرمول ۱۱</span>
-                <span className="choose-item">فرمول ۱۲</span>
-                <span className="choose-item">فرمول ۱۳</span>
-                <span className="choose-item">فرمول ۱۴</span>
-                <span className="choose-item">فرمول ۱۵</span>
-                <span className="choose-item">فرمول ۱۶</span>
-                <span className="choose-item">فرمول ۱۷</span>
-                <span className="choose-item">فرمول ۱۸</span>
-                <span className="choose-item">فرمول ۱۹</span>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          {choose_box === "formular" ? <Formulars /> : <></>}
         </div>
         <div className="submit-lead-pack-wrapper">
           <span className="sumbit-lead-pack-btn">ثبت لید پک </span>
@@ -242,74 +163,21 @@ const MakeLeadPackPage = () => {
             </span>
             {pop_up === "lead" ? (
               <>
-                <span className="make-title">ساخت لید سورس</span>
-                <div className="pop-options">
-                  <span className="pop-up-input-wrapper">
-                    <span className="pop-input-title">عنوان</span>
-                    <input type="text" placeholder="عنوان را وارد کنید" />
-                  </span>
-                  <span className="pop-up-input-wrapper">
-                    <span className="pop-input-title">عنوان عمومی</span>
-                    <input type="text" placeholder="عنوان عمومی را وارد کنید" />
-                  </span>
-                </div>
-                <span className="pop-up-make-btn">ساخت لید سورس</span>
+                <CreateLeadSource set_pop_up={set_pop_up} />
               </>
             ) : (
               <></>
             )}
             {pop_up === "senario" ? (
-              <>
-                <span className="make-title">ساخت سناریو تماس</span>
-                <div className="pop-options">
-                  <span className="pop-up-input-wrapper">
-                    <span className="pop-input-title">عنوان</span>
-                    <input type="text" placeholder="عنوان را وارد کنید" />
-                  </span>
-                  <span className="pop-up-input-wrapper">
-                    <span className="pop-input-title">متن سناریو</span>
-                    <textarea placeholder="عنوان عمومی را وارد کنید" />
-                  </span>
-                </div>
-                <span className="pop-up-make-btn">ساخت سناریو تماس</span>
-              </>
+              <CreateSenario set_pop_up={set_pop_up} />
             ) : (
               <></>
             )}
             {pop_up === "formular" ? (
-              <>
-                <span className="make-title">ساخت فرمول پورسانت</span>
-                <div className="pop-options">
-                  <span className="pop-up-input-wrapper">
-                    <span className="pop-input-title">عنوان</span>
-                    <input type="text" placeholder="عنوان را وارد کنید" />
-                  </span>
-                  <span className="pop-up-input-wrapper">
-                    <span className="pop-input-title">درصد نقدی</span>
-                    <input type="num" placeholder="درصد نقدی را وارد کنید" />
-                  </span>
-                  <span className="pop-up-input-wrapper">
-                    <span className="pop-input-title">درصد قسطب</span>
-                    <input type="num" placeholder="درصد قسطی را وارد کنید" />
-                  </span>
-                </div>
-                <span className="pop-up-make-btn">ساخت فرمول پورسانت</span>
-              </>
+              <CreateFormular set_pop_up={set_pop_up} />
             ) : (
               <></>
             )}
-            {/* <span className="make-title">ساخت لید سورس</span>
-            <div className="pop-options">
-              <span className="pop-up-input-wrapper">
-                <span className="pop-input-title">عنوان</span>
-                <input type="text" placeholder="عنوان را وارد کنید" />
-              </span>
-              <span className="pop-up-input-wrapper">
-                <span className="pop-input-title">عنوان عمومی</span>
-                <input type="text" placeholder="عنوان عمومی را وارد کنید" />
-              </span>
-            </div>
-            <span className="pop-up-make-btn">ساخت لید سورس</span> */}
           </div>
         </div>
       ) : (

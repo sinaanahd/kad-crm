@@ -1,8 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import last_login_check from "../functions/last-login-check";
 import axios from "axios";
+import urls from "../../urls/url";
 
-const user_data = JSON.parse(localStorage.getItem("user")) || false;
+const user_data = JSON.parse(localStorage.getItem("crm-user")) || false;
 const kelasses_data = JSON.parse(localStorage.getItem("kelasses")) || false;
 const jalasat_data = JSON.parse(localStorage.getItem("jalasat")) || false;
 const teachers_data = JSON.parse(localStorage.getItem("teachers")) || false;
@@ -15,6 +16,11 @@ const last_login = JSON.parse(localStorage.getItem("LL"))
   : this_time_login;
 const course_data = JSON.parse(localStorage.getItem("courses")) || false;
 const cart_data = JSON.parse(localStorage.getItem("cart")) || false;
+const senarios_data = JSON.parse(localStorage.getItem("senarios")) || false;
+const lead_sources_data =
+  JSON.parse(localStorage.getItem("lead_sources")) || false;
+const formular_data = JSON.parse(localStorage.getItem("formular")) || false;
+const lead_packs_data = JSON.parse(localStorage.getItem("lead_packs")) || false;
 const DataContext = createContext();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(user_data);
@@ -25,6 +31,7 @@ const DataProvider = ({ children }) => {
   const [pay_info, setPay_info] = useState(pay_info_data);
   const [courses, setCourses] = useState(course_data);
   const [cart, set_cart] = useState(cart_data);
+
   const subjects = [
     { id: 0, name: "ریاضی" },
 
@@ -68,38 +75,51 @@ const DataProvider = ({ children }) => {
       slug_name: "آفلاین",
     },
   ];
+
+  const [senarios, set_senarios] = useState(senarios_data);
+  const [lead_soursces, set_lead_soursces] = useState(lead_sources_data);
+  const [formular, set_formular] = useState(formular_data);
+  const [lead_packs, set_lead_packs] = useState(lead_packs_data);
+
   useEffect(() => {
-    const is_time = last_login_check(last_login, this_time_login);
-    if (is_time) {
-      if (user) {
-        get_info(user.user_id);
-      }
-      get_kelasses();
-      get_jalasat();
-      get_sample_files();
-      get_courses();
-    } else {
-      if (!kelasses_data) {
-        get_kelasses();
-      }
-      if (!jalasat_data) {
-        get_jalasat();
-      }
-      if (!sample_files_data) {
-        get_sample_files();
-      }
-      if (!course_data) {
-        get_courses();
-      }
-      if (user) {
-        if (!pay_info_data) {
-          get_info(user.user_id);
-        }
-      }
-    }
-    if (user) {
-      get_user(user.user_id);
-    }
+    get_senarios();
+    get_lead_sources();
+    get_formulars();
+    get_lead_packs();
+    // if (user) {
+    //   get_user(user.user_id);
+    // }
+    // const is_time = last_login_check(last_login, this_time_login);
+    // if (is_time) {
+    //   if (user) {
+    //     get_info(user.user_id);
+    //   }
+    //   get_kelasses();
+    //   get_jalasat();
+    //   get_sample_files();
+    //   get_courses();
+    // } else {
+    //   if (!kelasses_data) {
+    //     get_kelasses();
+    //   }
+    //   if (!jalasat_data) {
+    //     get_jalasat();
+    //   }
+    //   if (!sample_files_data) {
+    //     get_sample_files();
+    //   }
+    //   if (!course_data) {
+    //     get_courses();
+    //   }
+    //   if (user) {
+    //     if (!pay_info_data) {
+    //       get_info(user.user_id);
+    //     }
+    //   }
+    // }
+    // if (user) {
+    //   get_user(user.user_id);
+    // }
   }, []);
   const get_teachers = () => {
     axios
@@ -127,12 +147,12 @@ const DataProvider = ({ children }) => {
   };
   const get_user = (id) => {
     axios
-      .get(`https://kadschool.com/backend/kad_api/user/${id}`)
+      .get(``)
       .then((res) => {
         const user = res.data;
         setUser(user);
         // console.log(user);
-        localStorage.setItem("kad-user", JSON.stringify(user));
+        localStorage.setItem("crm-user", JSON.stringify(user));
       })
       .catch((e) => console.log(e.message));
   };
@@ -241,6 +261,99 @@ const DataProvider = ({ children }) => {
     });
     return sum;
   };
+
+  /* main apis */
+  const get_senarios = () => {
+    axios
+      .get(`${urls.senarios}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        // console.log(res.data);
+        if (result) {
+          set_senarios(response);
+          localStorage.setItem("senarios", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت سناریو ها پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const out_side_senario_setter = (data) => {
+    set_senarios(data);
+    localStorage.setItem("senarios", JSON.stringify(data));
+  };
+  const get_lead_sources = () => {
+    axios
+      .get(`${urls.lead_sources}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        // console.log(res.data);
+        if (result) {
+          set_lead_soursces(response);
+          localStorage.setItem("lead_soursces", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت سناریو ها پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const out_side_lead_soursce_setter = (data) => {
+    set_lead_soursces(data);
+    localStorage.setItem("lead_soursces", JSON.stringify(data));
+  };
+  const get_formulars = () => {
+    axios
+      .get(`${urls.formular}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        // console.log(res.data);
+        if (result) {
+          set_formular(response);
+          localStorage.setItem("formular", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت سناریو ها پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const out_side_formular_setter = (data) => {
+    set_formular(data);
+    localStorage.setItem("formular", JSON.stringify(data));
+  };
+  const get_lead_packs = () => {
+    axios
+      .get(`${urls.lead_packs}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        // console.log(res.data);
+        if (result) {
+          set_lead_packs(response);
+          localStorage.setItem("lead_packs", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت سناریو ها پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const out_side_lead_packs_setter = (data) => {
+    set_lead_packs(data);
+    localStorage.setItem("lead_packs", JSON.stringify(data));
+  };
+
+  /* main apis */
+
   return (
     <DataContext.Provider
       value={{
@@ -258,6 +371,14 @@ const DataProvider = ({ children }) => {
         courses,
         cart,
         handle_cart,
+        senarios,
+        out_side_senario_setter,
+        lead_soursces,
+        out_side_lead_soursce_setter,
+        formular,
+        out_side_formular_setter,
+        lead_packs,
+        out_side_lead_packs_setter,
       }}
     >
       {children}
