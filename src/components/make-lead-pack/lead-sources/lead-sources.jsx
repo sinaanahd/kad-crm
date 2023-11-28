@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import LittleLoading from "../../reuseables/little-loading";
 import { DataContext } from "../../data/datacontext";
-const LeadSources = () => {
+const LeadSources = ({ set_lead_source, set_choose_box }) => {
   const { lead_soursces } = useContext(DataContext);
   const [filtered, set_filtered] = useState(false);
   const handle_lead_search = (e) => {
@@ -13,6 +13,10 @@ const LeadSources = () => {
       set_filtered(false);
     }
   };
+  const choose_lead_source = (ls) => {
+    set_lead_source(ls);
+    set_choose_box(false);
+  };
   return (
     <div className="choose-box-item">
       <div className="search-choose-item">
@@ -23,7 +27,13 @@ const LeadSources = () => {
           filtered ? (
             filtered.length !== 0 ? (
               filtered.map((ls) => (
-                <span className="choose-item" key={ls.id}>
+                <span
+                  className="choose-item"
+                  key={ls.id}
+                  onClick={() => {
+                    choose_lead_source(ls);
+                  }}
+                >
                   {ls.title}
                 </span>
               ))
@@ -32,7 +42,13 @@ const LeadSources = () => {
             )
           ) : lead_soursces.length !== 0 ? (
             lead_soursces.map((ls) => (
-              <span className="choose-item" key={ls.id}>
+              <span
+                className="choose-item"
+                key={ls.id}
+                onClick={() => {
+                  choose_lead_source(ls);
+                }}
+              >
                 {ls.title}
               </span>
             ))

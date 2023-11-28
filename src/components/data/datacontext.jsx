@@ -21,6 +21,11 @@ const lead_sources_data =
   JSON.parse(localStorage.getItem("lead_sources")) || false;
 const formular_data = JSON.parse(localStorage.getItem("formular")) || false;
 const lead_packs_data = JSON.parse(localStorage.getItem("lead_packs")) || false;
+const sellers_data = JSON.parse(localStorage.getItem("sellers")) || false;
+const seller_lead_pcaks_data =
+  JSON.parse(localStorage.getItem("seller_lead_pcaks")) || false;
+const call_results_data =
+  JSON.parse(localStorage.getItem("call_results")) || false;
 const DataContext = createContext();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(user_data);
@@ -80,12 +85,26 @@ const DataProvider = ({ children }) => {
   const [lead_soursces, set_lead_soursces] = useState(lead_sources_data);
   const [formular, set_formular] = useState(formular_data);
   const [lead_packs, set_lead_packs] = useState(lead_packs_data);
-
+  const [sellers, set_sellers] = useState(sellers_data);
+  const [seller_lead_pcaks, set_seller_lead_pcaks] = useState(
+    seller_lead_pcaks_data
+  );
+  const [call_results, set_call_results] = useState(call_results_data);
   useEffect(() => {
+    const is_login_page = window.location.pathname === "/login";
     get_senarios();
     get_lead_sources();
     get_formulars();
     get_lead_packs();
+    get_sellers();
+    get_call_results();
+    if (!user) {
+      if (!is_login_page) {
+        window.location.pathname = "/login";
+      }
+    } else {
+      get_seller_lead_packs();
+    }
     // if (user) {
     //   get_user(user.user_id);
     // }
@@ -296,7 +315,7 @@ const DataProvider = ({ children }) => {
           localStorage.setItem("lead_soursces", JSON.stringify(response));
         } else {
           console.log(error);
-          alert("مشکلی در دریافت سناریو ها پیش آمده");
+          alert("مشکلی در دریافت لید سورس ها پیش آمده");
         }
       })
       .catch((e) => {
@@ -318,7 +337,7 @@ const DataProvider = ({ children }) => {
           localStorage.setItem("formular", JSON.stringify(response));
         } else {
           console.log(error);
-          alert("مشکلی در دریافت سناریو ها پیش آمده");
+          alert("مشکلی در دریافت فرمول ها پیش آمده");
         }
       })
       .catch((e) => {
@@ -340,7 +359,7 @@ const DataProvider = ({ children }) => {
           localStorage.setItem("lead_packs", JSON.stringify(response));
         } else {
           console.log(error);
-          alert("مشکلی در دریافت سناریو ها پیش آمده");
+          alert("مشکلی در دریافت لیدپک ها پیش آمده");
         }
       })
       .catch((e) => {
@@ -351,7 +370,66 @@ const DataProvider = ({ children }) => {
     set_lead_packs(data);
     localStorage.setItem("lead_packs", JSON.stringify(data));
   };
-
+  const get_sellers = () => {
+    axios
+      .get(`${urls.sellers}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        // console.log(res.data);
+        if (result) {
+          set_sellers(response);
+          localStorage.setItem("sellers", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت فروشنده ها پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const get_seller_lead_packs = () => {
+    axios
+      .get(`${urls.seller_lead_packs}${user.id}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        // console.log(res.data);
+        if (result) {
+          set_seller_lead_pcaks(response);
+          // console.log(response);
+          localStorage.setItem("seller_lead_pcaks", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت اطلاعات لیدپک پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const get_call_results = () => {
+    axios
+      .get(`${urls.call_result}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        // console.log(res.data);
+        if (result) {
+          set_call_results(response);
+          // console.log(response);
+          localStorage.setItem("call_results", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت اطلاعات لیدپک پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const out_side_call_results_setter = (data) => {
+    set_call_results(data);
+    localStorage.setItem("call_results", JSON.stringify(data));
+  };
   /* main apis */
 
   return (
@@ -379,6 +457,10 @@ const DataProvider = ({ children }) => {
         out_side_formular_setter,
         lead_packs,
         out_side_lead_packs_setter,
+        sellers,
+        seller_lead_pcaks,
+        call_results,
+        out_side_call_results_setter,
       }}
     >
       {children}

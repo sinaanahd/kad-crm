@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import profile_icon from "../../asset/images/side-bar/profile-icon.svg";
 import profile_icon_active from "../../asset/images/side-bar/profile-icon-active.svg";
@@ -11,14 +11,66 @@ import guides_icon_active from "../../asset/images/side-bar/guides-icon-active.s
 import dashboard_icon from "../../asset/images/side-bar/dashboard-icon.svg";
 import dashboard_icon_active from "../../asset/images/side-bar/dashboard-icon-active.svg";
 import arrowDown from "../../asset/images/side-bar/arrow-down.svg";
+import { DataContext } from "../data/datacontext";
 const SideBar = () => {
+  const { user } = useContext(DataContext);
   const [page_decider, set_page_decider] = useState(false);
   const [open_close, set_open_close] = useState(false);
+  const [menu_items, set_menu_items] = useState(false);
+  const all_pages = [
+    {
+      id: 1,
+      authorized_levels: [100, 80],
+      text: "ساخت لید جدید",
+      imgs: [my_courses_icon],
+      url: "make-lead-pack",
+    },
+    {
+      id: 2,
+      authorized_levels: [40],
+      text: "لید های من",
+      imgs: [my_courses_icon],
+      url: "my-leads",
+    },
+    {
+      id: 3,
+      authorized_levels: [100, 80],
+      text: "ساخت دیتا",
+      imgs: [my_courses_icon],
+      url: "add-data",
+    },
+    {
+      id: 4,
+      authorized_levels: [],
+      text: "",
+      url: "",
+    },
+    {
+      id: 5,
+      authorized_levels: [],
+      text: "",
+      url: "",
+    },
+    {
+      id: 6,
+      authorized_levels: [],
+      text: "",
+      url: "",
+    },
+  ];
   useEffect(() => {
     setInterval(() => {
       check_page();
     }, 1000);
   }, []);
+  useEffect(() => {
+    if (user) {
+      const menu_items = all_pages.filter((p) =>
+        p.authorized_levels.includes(user.level)
+      );
+      set_menu_items(menu_items);
+    }
+  }, [user]);
   const check_page = () => {
     set_page_decider(window.location.pathname.split("/")[1]);
   };
@@ -28,210 +80,39 @@ const SideBar = () => {
         className={open_close ? "side-bar-wrapper open" : "side-bar-wrapper"}
       >
         <ul className="side-bar-items">
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "make-lead-pack"
-                ? "side-bar-item active"
-                : "side-bar-item"
-            }
-          >
-            <Link to="/make-lead-pack" className="link-side-bar">
-              <img
-                width={24}
-                height={24}
-                src={
-                  page_decider === "make-lead-pack"
-                    ? my_courses_icon_active
-                    : my_courses_icon
+          {menu_items ? (
+            menu_items.map((mi) => (
+              <li
+                key={mi.id}
+                onClick={() => {
+                  set_open_close(false);
+                  check_page();
+                }}
+                className={
+                  page_decider === mi.url
+                    ? "side-bar-item active"
+                    : "side-bar-item"
                 }
-                alt="لیدپک ها"
-                className="side-bar-img"
-              />
-              <span className="side-text">ساخت لید جدید</span>
-            </Link>
-          </li>
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "my-leads"
-                ? "side-bar-item active"
-                : "side-bar-item"
-            }
-          >
-            <Link to="/my-leads" className="link-side-bar">
-              <img
-                width={24}
-                height={24}
-                src={
-                  page_decider === "my-leads"
-                    ? my_courses_icon_active
-                    : my_courses_icon
-                }
-                alt="لیدپک ها"
-                className="side-bar-img"
-              />
-              <span className="side-text">لید های من</span>
-            </Link>
-          </li>
-          {/*
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "dashboard"
-                ? "side-bar-item active"
-                : "side-bar-item"
-            }
-          >
-            <Link className="link-side-bar" to="/dashboard">
-              <img
-                width={24}
-                height={24}
-                src={
-                  page_decider === "dashboard"
-                    ? dashboard_icon_active
-                    : dashboard_icon
-                }
-                alt="اسم آیتم"
-                className="side-bar-img"
-              />
-              <span className="side-text">میزکار</span>
-            </Link>
-          </li>
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "profile"
-                ? "side-bar-item active"
-                : "side-bar-item"
-            }
-          >
-            <Link className="link-side-bar" to="/profile">
-              <img
-                width={24}
-                height={24}
-                src={
-                  page_decider === "profile"
-                    ? profile_icon_active
-                    : profile_icon
-                }
-                alt="اطلاعات کاربری"
-                className="side-bar-img"
-              />
-              <span className="side-text">اطلاعات کاربری</span>
-            </Link>
-          </li>
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "finance"
-                ? "side-bar-item active"
-                : "side-bar-item"
-            }
-          >
-            <Link className="link-side-bar" to="/finance">
-              <img
-                width={24}
-                height={24}
-                src={
-                  page_decider === "finance"
-                    ? finance_icon_active
-                    : finance_icon
-                }
-                alt="امور مالی"
-                className="side-bar-img"
-              />
-              <span className="side-text">امور مالی</span>
-            </Link>
-          </li>
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "guides"
-                ? "side-bar-item active"
-                : "side-bar-item"
-            }
-          >
-            <Link className="link-side-bar" to="/guides">
-              <span className="img-wrapper">
-                <img
-                  src={
-                    page_decider === "guides" ? guides_icon_active : guides_icon
-                  }
-                  alt="آموزش ها"
-                  className="side-bar-img"
-                />
-              </span>
-              <span className="side-text">آموزش ها</span>
-            </Link>
-          </li>
-
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "shop" ? "side-bar-item active" : "side-bar-item"
-            }
-          >
-            <Link className="link-side-bar" to="/shop">
-              <img
-                width={24}
-                height={24}
-                src={
-                  page_decider === "shop"
-                    ? my_courses_icon_active
-                    : my_courses_icon
-                }
-                alt="اسم آیتم"
-                className="side-bar-img"
-              />
-              <span className="side-text">خرید درس</span>
-            </Link>
-          </li>
-          <li
-            onClick={() => {
-              set_open_close(false);
-              check_page();
-            }}
-            className={
-              page_decider === "cart" ? "side-bar-item active" : "side-bar-item"
-            }
-          >
-            <Link className="link-side-bar" to="/cart">
-              <img
-                width={24}
-                height={24}
-                src={
-                  page_decider === "cart" ? profile_icon_active : profile_icon
-                }
-                alt="اسم آیتم"
-                className="side-bar-img"
-              />
-              <span className="side-text">سبد خرید</span>
-            </Link>
-          </li>
-          
-           */}
+              >
+                <Link to={`/${mi.url}`} className="link-side-bar">
+                  <img
+                    width={24}
+                    height={24}
+                    src={
+                      page_decider === "make-lead-pack"
+                        ? mi.imgs[0]
+                        : mi.imgs[0]
+                    }
+                    alt={mi.text}
+                    className="side-bar-img"
+                  />
+                  <span className="side-text">{mi.text}</span>
+                </Link>
+              </li>
+            ))
+          ) : (
+            <></>
+          )}
         </ul>
       </aside>
     </>

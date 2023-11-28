@@ -27,7 +27,7 @@ const Header = ({ user }) => {
             className="user-img"
           />
           <span className="user-name-wrapper">
-            {user ? user.name : <LittleLoading />}
+            {user ? user.fullname : <LittleLoading />}
           </span>
           <img src={arrow_down} alt="باز کردن" width={24} height={25} />
           {pop_up ? (
@@ -35,9 +35,6 @@ const Header = ({ user }) => {
               <span className="pop-up-option exit" onClick={exit_panel}>
                 خروج از پنل
               </span>
-              <Link to="/profile" className="pop-up-option">
-                پروفایل
-              </Link>
             </div>
           ) : (
             <></>

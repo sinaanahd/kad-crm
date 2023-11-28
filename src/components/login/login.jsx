@@ -4,6 +4,7 @@ import { DataContext } from "../data/datacontext";
 import LittleLoading from "../reuseables/little-loading";
 import url from "../../urls/url";
 import axios from "axios";
+const crm_user = JSON.parse(localStorage.getItem("crm-user")) || false;
 const Login = () => {
   const { user, setUser } = useContext(DataContext);
   const [pass_show, set_pass_show] = useState(false);
@@ -22,9 +23,13 @@ const Login = () => {
           const { error, response, result } = res.data;
           set_pause(false);
           if (result) {
-            console.log(response);
             setUser(response);
             localStorage.setItem("crm-user", JSON.stringify(response));
+            if (response.level === 100 || response.level === 80) {
+              window.location.pathname = "/add-data";
+            } else {
+              window.location.pathname = "/my-leads";
+            }
           } else {
             if (error === "NO SELLER FOUND") {
               set_code_err("رمز وارد شده اشتباه است");
@@ -41,7 +46,9 @@ const Login = () => {
     }
   };
   useEffect(() => {
-    console.log(user);
+    if (user) {
+      // window.location.pathname = "/add-data";
+    }
   }, []);
   return (
     <>

@@ -9,6 +9,7 @@ import MakeLeadPackPage from "./components/make-lead-pack/make-lead-pack";
 import LeadsPage from "./components/leades/leads";
 import SingleLead from "./components/single-lead/single-lead";
 import Login from "./components/login/login";
+import AddNewDatas from "./components/add-new-datas/add-new-datas";
 
 function App() {
   const { user } = useContext(DataContext);
@@ -21,12 +22,13 @@ function App() {
           <div className="main-content mm-width">
             <WelcomeName user={user}/>
             <Switch>
+               <Route path="/" exact component={Login} />
                <Route path="/make-lead-pack" exact component={MakeLeadPackPage} />
                <Route path="/my-leads" exact component={LeadsPage} />
                <Route path="/login" exact component={Login} />
+               <Route path="/add-data" exact component={AddNewDatas} />
                <Route path="/lead/:id" exact component={SingleLead} />
                <Route path="/not-found" component={MakeLeadPackPage} />
-
                <Redirect to="/not-found" />
               
             </Switch>

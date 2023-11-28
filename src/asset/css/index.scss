@@ -532,7 +532,24 @@ body {
         }
     }
     .lead-packs-box{
-        display: none;
+        @include flexMixin(row,center,flex-start);
+        gap: 5px;
+        position: absolute;
+        top: 50px;
+        background-color: $color-5;
+        width: 100%;
+        padding:10px 20px;
+        border-radius: 12px;
+        flex-wrap: wrap;
+    }
+    .lead-pack-item{
+        height: 30px;
+        border-radius: 15px;
+        @include flexMixin(row,center,center);
+        padding: 0 10px;
+        background-color: $background-color;
+        font-size: 14px;
+        cursor: pointer;
     }
     .submit-filters {
         width: 100%;
@@ -665,13 +682,15 @@ body {
         @include flexMixin(row,space-between,center);
         font-size: 18px;
         gap: 37px;
+        position: relative;
     }
     .input-title{
         flex: 0 0 120px;
     }
     .input-box{
         width: 100%;
-        @include flexMixin(row,center,center);
+        @include flexMixin(column,center,center);
+        gap: 10px;
         input{
             width: 100%;
             text-align: center;
@@ -679,7 +698,49 @@ body {
             background: rgba(153, 194, 255, 0.30);
             color: #fff;
             height: 28px;
+            &::placeholder {
+                color: #fff;
+                opacity: 1;
+            }
+            &::-ms-input-placeholder {
+                color: #fff;
+            }
         }
+    }
+    .select-box{
+        @include flexMixin(row,center,center);
+        width: 100%;
+        border-radius: 12px;
+        background: rgba(153, 194, 255, 0.30);
+        color: #fff;
+        height: 28px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .err-place{
+        color: $red-color;
+        font-size: 13px;
+    }
+    .box-items{
+        width: 100%;
+        position: absolute;
+        @include flexMixin(row,center,center);
+        gap: 10px;
+        padding: 20px;
+        background-color: $color-3;
+        font-size: 14px;
+        border-radius: 10px;
+        top: 35px;
+        z-index: 3;
+        flex-wrap: wrap;
+    }
+    .option-item{
+        @include flexMixin(row,center,center);
+        height: 25px;
+        border-radius: 20px;
+        cursor: pointer;
+        background-color: $color-2;
+        padding: 0 10px;
     }
     .submit-data-changes{
         width: 100%;
@@ -786,6 +847,7 @@ body {
     .call-input-wrapper{
         width: 100%;
         @include flexMixin(row,center,center);
+        position: relative;
     }
     .select-input{
         width: 100%;
@@ -793,6 +855,26 @@ body {
         border-radius: 12px;
         @include flexMixin(row,center,center);
         background-color: $color-2;
+        cursor: pointer;
+    }
+    .call-results-options{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        gap: 10px;
+        padding: 10px;
+        position: absolute;
+        top: 50px;
+        background-color: $color-3;
+        border-radius: 12px;
+        border: 2px solid $background-color;
+    }
+    .call-result-option{
+        width: 100%;
+        @include flexMixin(row,center,center);
+        border-radius: 10px;
+        background-color: $background-color;
+        height: 30px;
+        cursor: pointer;
     }
     .call-inputs-or-result{
         width: 100%;
@@ -805,6 +887,7 @@ body {
             border-radius: 12px;
             padding: 13px 20px;
             min-height: 107px;
+            color: #fff;
         }
         .note-result{
             width: 100%;
@@ -815,6 +898,16 @@ body {
             text-align: justify;
             line-height: 25px;
         }
+    }
+    .submit-call-result-data-btn {
+        width: 100%;
+        @include flexMixin(row,center,center);
+        height: 40px;
+        border-radius: 10px;
+        background-color:#A667CA;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
     }
     .call-note-title{
         flex: 0 0 80px;
@@ -890,3 +983,216 @@ body {
 
 }
 /* login page */
+
+
+/* add datas */
+.add-new-datas-page{
+    width: 100%;
+    @include flexMixin(column,flex-start,center);
+    gap: 30px;
+    .box-style{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        background-color: $color-3;
+        padding: 20px 35px;
+        border-radius: 20px;
+        gap: 20px;
+    }
+    .box-header {
+        width: 100%;
+        padding: 0 0 15px;
+        @include flexMixin(row, space-between, center);
+        border-bottom: 2px solid $color-5;
+    }
+    .box-title {
+        font-weight: bold;
+        font-size: 21px;
+    }
+    .all-wrapper{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        flex-wrap: wrap;
+    }
+    .lead-pack{
+        flex: 0 0 calc(25% - 20px);
+        background-color: $background-color;
+        color: #fff;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 12px;
+    }
+    .all-formulars , .all-lead-sources{
+        gap: 10px;
+        justify-content: center;
+    }
+    .all-lead-packs{
+        gap: 20px;
+    }
+    .lead-pack{
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 10px;
+        padding: 20px;
+    }
+    .lead-pack-title{
+        background-color: $color-5;
+        color: $background-color;
+        height: 40px;
+        @include flexMixin(row,center,center);
+        width: 100%;
+        border-radius: 5px;
+        font-size: 20px;
+        padding: 2px 0 0;
+        font-weight: bold;
+        margin: 0 0 10px;
+    }
+    .data-item{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+    }
+    .item-title{
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .item-value{
+        font-size: 13px;
+        color: $color-1;
+    }
+    .formular{
+        width: calc(20% - 20px);
+        @include flexMixin(column,flex-start,center);
+        background-color: $background-color;
+        padding: 20px;
+        border-radius: 12px;
+        gap: 20px;
+        font-size: 17px;
+    }
+    .formular-data-box{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+    }
+    .formular-data-title{
+        font-weight: bold;
+    }
+    .formular-data-num{
+        flex: 0 0 40px;
+        height: 40px;
+        @include flexMixin(row,center,center);
+        background-color: $color-5;
+        border-radius: 5px;
+        color: $background-color;
+    }
+    .all-btns{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        gap: 10px;
+        margin: 10px 0 0;
+    }
+    .f-btn{
+        width: 50%;
+        @include flexMixin(row,center,center);
+        border-radius: 12px;
+        font-size: 14px;
+        height: 30px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .edit-btn{
+        background-color: #A667CA;
+    }
+    .delete-btn{
+        background-color: $red-color;
+    }
+    .lead-source{
+        width: calc(20% - 20px);
+        @include flexMixin(column, flex-start, center);
+        background-color: $background-color;
+        padding: 20px;
+        border-radius: 12px;
+        gap: 20px;
+        font-size: 17px;
+    }
+    .all-senarios{
+        gap: 10px;
+    }
+    .senario-wrapper{
+        width: calc(50% - 10px);
+        @include flexMixin(column, flex-start, flex-end);
+        background-color: $background-color;
+        padding: 20px;
+        border-radius: 12px;
+        gap: 20px;
+        font-size: 17px;
+        .all-btns {
+            width: 350px;
+            justify-content: flex-end;
+            .f-btn{
+                width: unset;
+                padding: 2px 10px 0;
+                min-width: 100px;
+            }
+        }
+    }
+    .senario-title{
+        font-size: 25px;
+        width: 100%;
+        font-weight: bold;
+        @include flexMixin(row,flex-start,center);
+    }
+    .senario-text{
+        width: 100%;
+        padding: 20px;
+        border-radius: 12px; 
+        text-align: right;
+        border: 1px solid $color-5;
+        font-size: 15px;
+        line-height: 30px;
+    }
+    .show-details{
+        background-color: $color-3;
+    }
+    .all-call-results{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+    .call-result{
+        min-width: 150px;
+        @include flexMixin(column, flex-start, center);
+        background-color: $background-color;
+        padding: 10px;
+        border-radius: 12px;
+        gap: 20px;
+        font-size: 14px;
+    }
+    .make-new-call-result{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+        input{
+            flex: 0 0 300px;
+            height: 30px;
+            padding: 0 10px;
+            border-radius: 5px;
+            background-color: $color-2;
+            color: #fff;
+            &::placeholder{
+                color: #fff;
+            }
+        }
+    }
+    .submit-new-call-result{
+        width: 100px;
+        height: 30px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #A667CA;
+        color: #fff;
+        font-weight: bold;
+    }
+    .input-label{
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+/* add datas */

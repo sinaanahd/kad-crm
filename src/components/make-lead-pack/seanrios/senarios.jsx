@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import LittleLoading from "../../reuseables/little-loading";
 import { DataContext } from "../../data/datacontext";
-const Senarios = () => {
+const Senarios = ({ set_senario, set_choose_box }) => {
   const { senarios } = useContext(DataContext);
   const [searched_senarios, set_searched_senarios] = useState(false);
   const handle_senario_search = (e) => {
@@ -12,6 +12,10 @@ const Senarios = () => {
     } else {
       set_searched_senarios(false);
     }
+  };
+  const choose_senario = (s) => {
+    set_senario(s);
+    set_choose_box(false);
   };
   return (
     <div className="choose-box-item">
@@ -27,7 +31,13 @@ const Senarios = () => {
           searched_senarios ? (
             searched_senarios.length !== 0 ? (
               searched_senarios.map((s) => (
-                <span key={s.id} className="choose-item">
+                <span
+                  key={s.id}
+                  className="choose-item"
+                  onClick={() => {
+                    choose_senario(s);
+                  }}
+                >
                   {s.scenario_name}
                 </span>
               ))
@@ -36,7 +46,13 @@ const Senarios = () => {
             )
           ) : senarios.length !== 0 ? (
             senarios.map((s) => (
-              <span key={s.id} className="choose-item">
+              <span
+                key={s.id}
+                className="choose-item"
+                onClick={() => {
+                  choose_senario(s);
+                }}
+              >
                 {s.scenario_name}
               </span>
             ))

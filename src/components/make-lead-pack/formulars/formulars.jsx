@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { DataContext } from "../../data/datacontext";
 import LittleLoading from "../../reuseables/little-loading";
-const Formulars = () => {
+const Formulars = ({ set_formular, set_choose_box }) => {
   const { formular } = useContext(DataContext);
   const [searched, set_searched] = useState(false);
   const search_formulars = (e) => {
@@ -13,6 +13,10 @@ const Formulars = () => {
       set_searched(false);
     }
   };
+  const choose_formular = (f) => {
+    set_formular(f);
+    set_choose_box(false);
+  };
   return (
     <div className="choose-box-item">
       <div className="search-choose-item">
@@ -23,7 +27,13 @@ const Formulars = () => {
           searched ? (
             searched.length !== 0 ? (
               searched.map((f, i) => (
-                <span key={i++} className="choose-item">
+                <span
+                  key={i++}
+                  className="choose-item"
+                  onClick={() => {
+                    choose_formular(f);
+                  }}
+                >
                   {f.title}
                 </span>
               ))
@@ -32,7 +42,13 @@ const Formulars = () => {
             )
           ) : (
             formular.map((f, i) => (
-              <span key={i++} className="choose-item">
+              <span
+                key={i++}
+                className="choose-item"
+                onClick={() => {
+                  choose_formular(f);
+                }}
+              >
                 {f.title}
               </span>
             ))

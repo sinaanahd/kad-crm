@@ -5,18 +5,18 @@ import axios from "axios";
 import { DataContext } from "../../data/datacontext";
 const CreateFormular = ({ set_pop_up }) => {
   const { out_side_formular_setter } = useContext(DataContext);
-  const [title, set_title] = useState(false);
+  // const [title, set_title] = useState(false);
   const [naghd, set_naghd] = useState(false);
   const [ghest, set_ghest] = useState(false);
   const [pause, set_pause] = useState(false);
-  const handle_title = (e) => {
-    const value = e.target.value;
-    if (value.length !== 0) {
-      set_title(value);
-    } else {
-      set_title(false);
-    }
-  };
+  // const handle_title = (e) => {
+  //   const value = e.target.value;
+  //   if (value.length !== 0) {
+  //     set_title(value);
+  //   } else {
+  //     set_title(false);
+  //   }
+  // };
   const handle_naghd = (e) => {
     const value = e.target.value;
     if (value.length !== 0) {
@@ -34,12 +34,11 @@ const CreateFormular = ({ set_pop_up }) => {
     }
   };
   const send_new_formular = () => {
-    if (naghd && title && ghest) {
+    if (naghd && ghest) {
       set_pause(true);
       const send_obj = {
         ghesti_percent: ghest,
         naghdi_percent: naghd,
-        title: title,
       };
       axios
         .post(urls.formular, send_obj)
@@ -68,18 +67,18 @@ const CreateFormular = ({ set_pop_up }) => {
     <>
       <span className="make-title">ساخت فرمول پورسانت</span>
       <div className="pop-options">
-        <span className="pop-up-input-wrapper">
+        {/* <span className="pop-up-input-wrapper">
           <span className="pop-input-title">عنوان</span>
           <input
             type="text"
             placeholder="عنوان را وارد کنید"
             onInput={handle_title}
           />
-        </span>
+        </span> */}
         <span className="pop-up-input-wrapper">
           <span className="pop-input-title">درصد نقدی</span>
           <input
-            type="num"
+            type="number"
             placeholder="درصد نقدی را وارد کنید"
             onInput={handle_naghd}
           />
@@ -87,7 +86,7 @@ const CreateFormular = ({ set_pop_up }) => {
         <span className="pop-up-input-wrapper">
           <span className="pop-input-title">درصد قسطی</span>
           <input
-            type="num"
+            type="number"
             placeholder="درصد قسطی را وارد کنید"
             onInput={handle_ghest}
           />
