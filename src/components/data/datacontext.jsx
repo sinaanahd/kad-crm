@@ -39,12 +39,16 @@ const DataProvider = ({ children }) => {
 
   const subjects = [
     { id: 0, name: "ریاضی" },
-
     { id: 1, name: "تجربی" },
-
     { id: 2, name: "انسانی" },
-
     { id: 3, name: "هنر" },
+  ];
+  const ref_subjects = [
+    { id: 0, name: "ریاضی" },
+    { id: 1, name: "تجربی" },
+    { id: 2, name: "انسانی" },
+    { id: 3, name: "هنر" },
+    { id: 1111, name: "ثبت نشده" },
   ];
   const years = [
     {
@@ -67,6 +71,29 @@ const DataProvider = ({ children }) => {
       id: 0,
       name: "فارغ التحصیل",
     },
+  ];
+  const ref_years = [
+    {
+      id: 10,
+      name: "دهم",
+    },
+    {
+      id: 11,
+      name: "یازدهم",
+    },
+    {
+      id: 12,
+      name: "دوازدهم",
+    },
+    {
+      id: 18,
+      name: "کنکور",
+    },
+    {
+      id: 0,
+      name: "فارغ التحصیل",
+    },
+    { id: 1111, name: "ثبت نشده" },
   ];
   const doreha = [
     {
@@ -439,6 +466,8 @@ const DataProvider = ({ children }) => {
         setUser,
         kelasses,
         subjects,
+        ref_years,
+        ref_subjects,
         years,
         jalasat,
         teachers,

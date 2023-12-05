@@ -10,6 +10,8 @@ const urls = {
     single_lead_pack : `${base_site}leads/`,
     single_lead : `${base_site}leadDetails/`,
     call : `${base_site}createCall`,
-    call_result : `${base_site}callResult`
+    call_result : `${base_site}callResult`,
+    all_users_summary : `${base_site}all_users_summary`,
+    products : `${base_site}products`
 }
 export default urls;
