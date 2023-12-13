@@ -12,6 +12,11 @@ const urls = {
     call : `${base_site}createCall`,
     call_result : `${base_site}callResult`,
     all_users_summary : `${base_site}all_users_summary`,
-    products : `${base_site}products`
+    products : `${base_site}products`,
+    edit_lead_pack : `${base_site}edit_leadPack_file/`,
+    sale : `${base_site}Sale`,
+    sina : `${base_site}sina`,
+    payment_fish_image : `${base_site}payment_fish_image`,
+    submit_user : `${base_site}register_user_prime`,
 }
 export default urls;

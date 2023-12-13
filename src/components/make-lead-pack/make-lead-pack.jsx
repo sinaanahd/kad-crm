@@ -67,6 +67,8 @@ const MakeLeadPackPage = () => {
           // console.log(res.data);
           if (result) {
             localStorage.setItem("lead_packs", JSON.stringify(response));
+            alert("با موفقیت ثبت شد");
+            window.location.reload();
           } else {
             alert("مشکلی پیش آمده دوباره تلاش کنید");
             console.log(error);

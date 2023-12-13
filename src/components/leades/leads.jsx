@@ -204,25 +204,32 @@ const LeadsPage = () => {
           </div>
           <div className="number-table">
             <div className="number-header-row number-row">
+              <span className="header-item number-item counter-col">ردیف</span>
               <span className="header-item number-item first-item">شماره</span>
-              <span className="header-item number-item">تعداد تماس</span>
+              <span className="header-item number-item call-counts-col">
+                تعداد تماس
+              </span>
               <span className="header-item number-item">پایه</span>
               <span className="header-item number-item">رشته</span>
               <span className="header-item number-item">پورسانت</span>
-              <span className="header-item number-item date-item">تاریخ</span>
+              <span className="header-item number-item date-item">
+                منبع شماره
+              </span>
               <span className="header-item number-item last-item"></span>
             </div>
             {leads ? (
               filtered_leads ? (
                 filtered_leads.length !== 0 ? (
-                  filtered_leads.map((l) => (
-                    <Lead key={l.id} lead={l} pack={lead_pack} />
+                  filtered_leads.map((l, i) => (
+                    <Lead counter={i++} key={l.id} lead={l} pack={lead_pack} />
                   ))
                 ) : (
                   "موردی برای نمایش وجود ندارد"
                 )
               ) : leads.length !== 0 ? (
-                leads.map((l) => <Lead key={l.id} lead={l} pack={lead_pack} />)
+                leads.map((l, i) => (
+                  <Lead counter={i++} key={l.id} lead={l} pack={lead_pack} />
+                ))
               ) : (
                 "موردی برای نمایش وجود ندارد"
               )

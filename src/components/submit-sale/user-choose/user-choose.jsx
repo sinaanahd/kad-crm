@@ -7,11 +7,11 @@ import urls from "../../../urls/url";
 import magnifier from "../../../asset/images/leads/magnifier.svg";
 const all_users_data =
   JSON.parse(localStorage.getItem("users-summary")) || false;
-const UserChoose = () => {
+const UserChoose = ({ set_selected_user, set_make_user }) => {
   const { ref_subjects, ref_years } = useContext(DataContext);
   const [all_users, set_all_users] = useState(all_users_data);
   const [searched_users, set_searched_users] = useState(false);
-  const [pause, set_pause] = useState(false);
+  const [disable_part, set_disable_part] = useState(false);
   useEffect(() => {
     axios
       .get(urls.all_users_summary)
@@ -20,6 +20,7 @@ const UserChoose = () => {
         if (result) {
           set_all_users(response);
           localStorage.setItem("users-summary", JSON.stringify(response));
+          console.log(response.filter((r) => !r.phone_number));
         } else {
           alert("مشکلی پیش آمده");
           console.log(error);
@@ -40,13 +41,28 @@ const UserChoose = () => {
   };
   const search_users = (e) => {
     const value = e.target.value;
-    const searched_users = all_users.filter((u) =>
-      u.phone_number.startsWith(value)
+    const searched_users = all_users.filter(
+      (u) => u.phone_number && u.phone_number.startsWith(value)
     );
     set_searched_users(searched_users);
   };
+  const reques_to_make_user = () => {
+    set_make_user(true);
+    set_disable_part(true);
+  };
+  const handle_user_select = (user) => {
+    set_selected_user(user);
+    set_disable_part(true);
+    console.log(user);
+  };
   return (
-    <section className="phone-part-wrapper box-style">
+    <section
+      className={
+        disable_part
+          ? "phone-part-wrapper box-style disabled-part"
+          : "phone-part-wrapper box-style"
+      }
+    >
       <div className="section-header">
         <span className="header-title">یوزر های سایت</span>
         <span className="header-input-place">
@@ -91,7 +107,14 @@ const UserChoose = () => {
                     )}
                   </span>
                   <span className="table-item last-col">
-                    <button className="choose-user">انتخاب کاربر</button>
+                    <button
+                      className="choose-user"
+                      onClick={() => {
+                        handle_user_select(au);
+                      }}
+                    >
+                      انتخاب کاربر
+                    </button>
                   </span>
                 </div>
               ))
@@ -100,7 +123,9 @@ const UserChoose = () => {
                 <span className="no-user-text">
                   کاربری با این شماره پیدا نشد
                 </span>
-                <button className="choose-user">ثبت شماره جدید</button>
+                <button onClick={reques_to_make_user} className="choose-user">
+                  ثبت شماره جدید
+                </button>
               </div>
             )
           ) : (
@@ -120,7 +145,14 @@ const UserChoose = () => {
                   {ref_subjects ? subject_finder(au.major) : <LittleLoading />}
                 </span>
                 <span className="table-item last-col">
-                  <button className="choose-user">انتخاب کاربر</button>
+                  <button
+                    className="choose-user"
+                    onClick={() => {
+                      handle_user_select(au);
+                    }}
+                  >
+                    انتخاب کاربر
+                  </button>
                 </span>
               </div>
             ))

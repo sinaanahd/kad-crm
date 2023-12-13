@@ -47,7 +47,11 @@ const Login = () => {
   };
   useEffect(() => {
     if (user) {
-      // window.location.pathname = "/add-data";
+      if (user.level === 100 || user.level === 80) {
+        window.location.pathname = "/add-data";
+      } else {
+        window.location.pathname = "/my-leads";
+      }
     }
   }, []);
   return (

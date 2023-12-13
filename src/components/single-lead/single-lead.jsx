@@ -10,10 +10,10 @@ import LeadSenario from "./lead-senario/lead-senario";
 import LeadFormulars from "./lead-formulars/lead-formulars";
 import CallInfo from "./call-info/call-info";
 const SingleLead = () => {
+  const { lead_packs, lead_soursces } = useContext(DataContext);
   const [lead, set_lead] = useState(false);
   useEffect(() => {
     const page_slug = window.location.pathname.split("/")[2];
-    console.log(page_slug);
     axios
       .get(urls.single_lead + page_slug)
       .then((res) => {
@@ -28,7 +28,14 @@ const SingleLead = () => {
       })
       .catch((e) => console.log(e.message));
   }, []);
-
+  const lead_pack =
+    lead && lead_packs
+      ? lead_packs.find((lp) => lp.id === lead.leadPack_id)
+      : false;
+  const lead_source =
+    lead_pack && lead_soursces
+      ? lead_soursces.find((ls) => ls.id === lead_pack.source_id)
+      : false;
   return (
     <>
       <Helmet>
@@ -39,7 +46,9 @@ const SingleLead = () => {
           <span className="box-title">
             جزئیات لید {lead ? lead.phone_number : <LittleLoading />}
           </span>
-          <span className="submit-sale">ثبت فروش</span>
+          <span className="submit-sale">
+            {lead_source ? lead_source.title : <LittleLoading />}
+          </span>
         </div>
         <div className="main-columns">
           <div className="lead-details-senario-wrapper">

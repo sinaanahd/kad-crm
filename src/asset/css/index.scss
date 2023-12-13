@@ -612,11 +612,16 @@ body {
         @include flexMixin(column,center,center);
     }
     .first-item{
-        align-items: flex-start;
-        flex: 0 0 100px;
+        flex: 0 0 150px;
     }
     .last-item{
         @include flexMixin(row,center,center);
+    }
+    .call-counts-col{
+        flex: 0 0 58px;
+    }
+    .counter-col{
+        flex: 0 0 50px;
     }
     .go-to-lead-page{
         width: 124px;
@@ -980,7 +985,6 @@ body {
         font-size: 15px;
         border-radius: 10px;
     }
-
 }
 /* login page */
 
@@ -1027,6 +1031,7 @@ body {
     }
     .all-lead-packs{
         gap: 20px;
+        align-items: flex-start;
     }
     .lead-pack{
         @include flexMixin(column,flex-start,flex-start);
@@ -1044,6 +1049,51 @@ body {
         padding: 2px 0 0;
         font-weight: bold;
         margin: 0 0 10px;
+    }
+    .edit-lead-pack-file-btn{
+        width: 100%;
+        background-color: #A667CA;
+        color: #fff;
+        height: 30px;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .make-lead-pack-changes-wrapper{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        flex-wrap: wrap;
+        margin: 20px 0 0;
+        gap: 20px;
+        .file-changes-inputs-wrapper{
+            input{
+                display: none;
+            }
+        }
+        .file-name-wrapper{
+            font-size: 13px;
+        }
+        .send-file-changes-btn{
+            width: 100%;
+            @include flexMixin(row,center,center);
+            background-color: $color-5;
+            height: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .get-file-btn{
+            width: 120px;
+            height: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            color: $color-5;
+            border: 1px solid $color-5;
+            @include flexMixin(row,center,center);
+            border-radius: 10px;
+        }
     }
     .data-item{
         width: 100%;
@@ -1315,6 +1365,7 @@ body {
             background-color: #030330;
             border-radius: 12px;
             padding: 13px 16px;
+            color: #fff;
         }
     }
     .optional-text{
@@ -1376,22 +1427,26 @@ body {
     }
     .shop-col{
         gap: 20px;
-        width: 466px;
+        flex: 0 0 466px;
+        height: 1250px;
+        justify-content: space-between;
     }
     .sale-details-wrapper{
         width: 100%;
         @include flexMixin(row,flex-start,flex-start);
         gap: 21px;
+        max-width: 900px;
     }
     .products-wrapper{
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2,186px);
-        row-gap: 15px;
-        column-gap: 15px;
+        @include flexMixin(row,space-between,flex-start);
+        flex-wrap: wrap;
+        height: 100%;
+        align-content: flex-start;
+        gap: 15px;
     }
     .product-item{
-        width: 100%;
+        width: calc(50% - 7.5px);
         @include flexMixin(column,space-between,flex-start);
         padding:30px 12px 15px;
         background-color: #030330;
@@ -1399,6 +1454,7 @@ body {
         position: relative;
         gap: 15px;
         overflow: hidden;
+        height: 194px;
     }
     .product-name{
         font-size: 17px;
@@ -1424,6 +1480,17 @@ body {
         font-weight: bold;
         background-color: $color-5;
         color: #030330;
+        cursor: pointer;
+        transition: $transition;
+        border: 2px solid $color-5;
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+    .add-to-cart-btn.disable-btn{
+        cursor: not-allowed;
+        color: $color-5;
+        background-color: #030330;
     }
     .product-type{
         position: absolute;
@@ -1441,6 +1508,7 @@ body {
         width: 100%;
         @include flexMixin(row,center,center);
         gap: 12px;
+        flex: 0 0 50px;
     }
     .arrow-span{
         img{
@@ -1471,7 +1539,7 @@ body {
         background-color: $color-5;
     }
     .cart-col{
-        width: 404px;
+        width: 100%;
         .submit-btn{
             width: 100%;
             margin: 30px 0 0;
@@ -1601,6 +1669,96 @@ body {
             font-size: 15px;
         }
     }
+    .beyane-input{
+        width: 198px;
+        height: 46px;
+        padding: 0 16px;
+        border: 1px solid $color-5;
+        border-radius: 12px;
+        font-size: 15px;
+        background-color: transparent;
+        color: $color-1;
+        &::placeholder{
+            color: $color-1;
+        }
+    }
+    .date-input{
+        .input-label{
+            flex: 0 0 100px;
+        }
+    }
+    .custom-date-picker-wrapper{
+        width: 198px;
+        @include flexMixin(row,space-between,center);
+        position: relative;
+        gap: 5px;
+    }
+    .custom-date-wrapper{
+        @include flexMixin(column,flex-start,center);
+    }
+    .custom-date-box{
+        @include flexMixin(row,space-between,center);
+        width: 50px;
+        border: 1px solid $color-5;
+        height: 46px;
+        padding: 0 5px;
+        border-radius: 12px;
+        color: $color-1;
+        cursor: pointer;
+        font-size: 12px;
+        gap: 3px;
+        img{
+            width: 10px;
+        }
+    }
+    .month-custom-box{
+        width: 80px;
+    }
+    .custom-date-select-options{
+        width: 100%;
+        @include flexMixin(row, flex-start, center);
+        padding: 10px 13px;
+        background-color: #303d83;
+        border-radius: 12px;
+        position: absolute;
+        top: 50px;
+        z-index: 2;
+        gap: 10px;
+        right: 0;
+        flex-wrap: wrap;
+    }
+    .date-custom.custom-date-select-options{
+        .custom-date-option{
+            width: 20px;
+            height: 20px;
+        }
+    }
+    .custom-date-option{
+        width: calc(50% - 5px);
+        border-radius: 6px;
+        height: 30px;
+        @include flexMixin(row, center, center);
+        cursor: pointer;
+        transition: $transition;
+        border: 1px solid #303d83;
+        &:hover {
+            border: 1px solid $color-5;
+        }
+    }
+    .pos-need{
+        position: relative;
+    }
+    .num-extra-show{
+        position: absolute;
+        left: -5px;
+        top: 35px;
+        background-color: $color-1;
+        color: $color-3;
+        padding: 0 10px;
+        @include flexMixin(row,center,center);
+        border-radius: 20px;
+        font-size: 12px;
+    }
     .payments-table{
         width: 100%;
         @include flexMixin(column,flex-start,center);
@@ -1632,7 +1790,13 @@ body {
         display: none;
     }
     .underline-file{
-        text-decoration: underline;
+        flex: 0 0 100px;
+        word-break: break-all;
+        font-size: 12px;
+        text-align: left;
+    }
+    .flex-width-100{
+        flex: 0 0 100px;
     }
     .final-payments-price{
         width: 100%;
@@ -1728,6 +1892,26 @@ body {
             height: 100%;
             width: auto!important;
         }
+    }
+    .disabled-part{
+        overflow: hidden;
+        opacity: 0.3;
+        height: 105px;
+    }
+    // .disabled-part.phone-part-wrapper{
+    //     height: 110px;
+    // }
+    // .disabled-part.sale-details-wrapper{
+    //     height: 100px;
+    // }
+    // .disabled-part.payments-data-wrapper{
+    //     height: 110px;
+    // }
+    // .make-user-section.disabled-part{
+    //     height: 110px;
+    // }
+    .cursor-need{
+        cursor: pointer;
     }
 }
 /* submit sale page */
