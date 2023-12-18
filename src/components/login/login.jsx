@@ -45,6 +45,12 @@ const Login = () => {
       set_code_err("رمز وارد نشده است");
     }
   };
+  const handle_login_with_key = (e) => {
+    const key = e.keyCode;
+    if (key === 13) {
+      handle_pass_check();
+    }
+  };
   useEffect(() => {
     if (user) {
       if (user.level === 100 || user.level === 80) {
@@ -71,6 +77,7 @@ const Login = () => {
             id=""
             placeholder="کد ورود خود را وارد کنید"
             onInput={handle_pass}
+            onKeyDown={handle_login_with_key}
           />
           <button
             className="show-pass"

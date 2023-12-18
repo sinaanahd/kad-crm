@@ -48,9 +48,10 @@ const SideBar = () => {
     },
     {
       id: 5,
-      authorized_levels: [],
-      text: "",
-      url: "",
+      authorized_levels: [100, 80],
+      text: "فروشندگان",
+      url: "sellers-report",
+      imgs: [my_courses_icon],
     },
     {
       id: 6,

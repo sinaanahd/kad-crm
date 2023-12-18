@@ -26,6 +26,7 @@ const seller_lead_pcaks_data =
   JSON.parse(localStorage.getItem("seller_lead_pcaks")) || false;
 const call_results_data =
   JSON.parse(localStorage.getItem("call_results")) || false;
+const products_data = JSON.parse(localStorage.getItem("all-products")) || false;
 const DataContext = createContext();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(user_data);
@@ -36,6 +37,7 @@ const DataProvider = ({ children }) => {
   const [pay_info, setPay_info] = useState(pay_info_data);
   const [courses, setCourses] = useState(course_data);
   const [cart, set_cart] = useState(cart_data);
+  const [products, set_products] = useState(products_data);
 
   const subjects = [
     { id: 0, name: "ریاضی" },
@@ -119,53 +121,44 @@ const DataProvider = ({ children }) => {
   const [call_results, set_call_results] = useState(call_results_data);
   useEffect(() => {
     const is_login_page = window.location.pathname === "/login";
-    get_senarios();
-    get_lead_sources();
-    get_formulars();
-    get_lead_packs();
-    get_sellers();
-    get_call_results();
+    const is_time = last_login_check(last_login, this_time_login);
+
     if (!user) {
-      if (!is_login_page) {
-        window.location.pathname = "/login";
-      }
+      window.location.pathname = "/login";
     } else {
-      get_seller_lead_packs();
+      if (is_time) {
+        get_senarios();
+        get_lead_sources();
+        get_formulars();
+        get_lead_packs();
+        get_sellers();
+        get_call_results();
+        get_products();
+        get_seller_lead_packs();
+      } else {
+        if (!senarios_data) {
+          get_senarios();
+        }
+        if (!lead_sources_data) {
+          get_lead_sources();
+        }
+        if (!formular_data) {
+          get_formulars();
+        }
+        if (!lead_packs) {
+          get_lead_packs();
+        }
+        if (!sellers) {
+          get_sellers();
+        }
+        if (!products) {
+          get_products();
+        }
+        if (!seller_lead_pcaks_data) {
+          get_seller_lead_packs();
+        }
+      }
     }
-    // if (user) {
-    //   get_user(user.user_id);
-    // }
-    // const is_time = last_login_check(last_login, this_time_login);
-    // if (is_time) {
-    //   if (user) {
-    //     get_info(user.user_id);
-    //   }
-    //   get_kelasses();
-    //   get_jalasat();
-    //   get_sample_files();
-    //   get_courses();
-    // } else {
-    //   if (!kelasses_data) {
-    //     get_kelasses();
-    //   }
-    //   if (!jalasat_data) {
-    //     get_jalasat();
-    //   }
-    //   if (!sample_files_data) {
-    //     get_sample_files();
-    //   }
-    //   if (!course_data) {
-    //     get_courses();
-    //   }
-    //   if (user) {
-    //     if (!pay_info_data) {
-    //       get_info(user.user_id);
-    //     }
-    //   }
-    // }
-    // if (user) {
-    //   get_user(user.user_id);
-    // }
   }, []);
   const get_teachers = () => {
     axios
@@ -446,7 +439,7 @@ const DataProvider = ({ children }) => {
           localStorage.setItem("call_results", JSON.stringify(response));
         } else {
           console.log(error);
-          alert("مشکلی در دریافت اطلاعات لیدپک پیش آمده");
+          alert("مشکلی در دریافت اطلاعات نتیجه تماس پیش آمده");
         }
       })
       .catch((e) => {
@@ -456,6 +449,23 @@ const DataProvider = ({ children }) => {
   const out_side_call_results_setter = (data) => {
     set_call_results(data);
     localStorage.setItem("call_results", JSON.stringify(data));
+  };
+  const get_products = (e) => {
+    axios
+      .get(`${urls.products}`)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        if (result) {
+          set_products(response);
+          localStorage.setItem("all-products", JSON.stringify(response));
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت اطلاعات محصولات پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   /* main apis */
 
@@ -490,6 +500,7 @@ const DataProvider = ({ children }) => {
         seller_lead_pcaks,
         call_results,
         out_side_call_results_setter,
+        products,
       }}
     >
       {children}

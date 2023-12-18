@@ -5,6 +5,7 @@ import axios from "axios";
 import urls from "../../../urls/url";
 
 import magnifier from "../../../asset/images/leads/magnifier.svg";
+import User from "./user/user";
 const all_users_data =
   JSON.parse(localStorage.getItem("users-summary")) || false;
 const UserChoose = ({ set_selected_user, set_make_user }) => {
@@ -20,7 +21,7 @@ const UserChoose = ({ set_selected_user, set_make_user }) => {
         if (result) {
           set_all_users(response);
           localStorage.setItem("users-summary", JSON.stringify(response));
-          console.log(response.filter((r) => !r.phone_number));
+          // console.log(response.filter((r) => !r.phone_number));
         } else {
           alert("مشکلی پیش آمده");
           console.log(error);
@@ -86,37 +87,13 @@ const UserChoose = ({ set_selected_user, set_make_user }) => {
           searched_users ? (
             searched_users.length !== 0 ? (
               searched_users.map((au, i) => (
-                <div className="table-row" key={i++}>
-                  <span className="table-item first-col">
-                    {au.phone_number}
-                  </span>
-                  <span className="table-item">{au.fullname}</span>
-                  <span className="table-item">
-                    {ref_years ? (
-                      years_finder(au.grade)
-                    ) : (
-                      //   au.grade
-                      <LittleLoading />
-                    )}
-                  </span>
-                  <span className="table-item">
-                    {ref_subjects ? (
-                      subject_finder(au.major)
-                    ) : (
-                      <LittleLoading />
-                    )}
-                  </span>
-                  <span className="table-item last-col">
-                    <button
-                      className="choose-user"
-                      onClick={() => {
-                        handle_user_select(au);
-                      }}
-                    >
-                      انتخاب کاربر
-                    </button>
-                  </span>
-                </div>
+                <User
+                  handle_user_select={handle_user_select}
+                  subject_finder={subject_finder}
+                  years_finder={years_finder}
+                  key={i++}
+                  au={au}
+                />
               ))
             ) : (
               <div className="no-user-found">
@@ -130,31 +107,13 @@ const UserChoose = ({ set_selected_user, set_make_user }) => {
             )
           ) : (
             all_users.map((au, i) => (
-              <div className="table-row" key={i++}>
-                <span className="table-item first-col">{au.phone_number}</span>
-                <span className="table-item">{au.fullname}</span>
-                <span className="table-item">
-                  {ref_years ? (
-                    years_finder(au.grade)
-                  ) : (
-                    //   au.grade
-                    <LittleLoading />
-                  )}
-                </span>
-                <span className="table-item">
-                  {ref_subjects ? subject_finder(au.major) : <LittleLoading />}
-                </span>
-                <span className="table-item last-col">
-                  <button
-                    className="choose-user"
-                    onClick={() => {
-                      handle_user_select(au);
-                    }}
-                  >
-                    انتخاب کاربر
-                  </button>
-                </span>
-              </div>
+              <User
+                handle_user_select={handle_user_select}
+                subject_finder={subject_finder}
+                years_finder={years_finder}
+                key={i++}
+                au={au}
+              />
             ))
           )
         ) : (

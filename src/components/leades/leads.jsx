@@ -42,7 +42,7 @@ const LeadsPage = () => {
             alert("مشکلی پیش آمده");
             console.log(error);
           }
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((e) => console.log(e.massage));
     }

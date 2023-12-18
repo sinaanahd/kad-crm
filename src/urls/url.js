@@ -18,5 +18,6 @@ const urls = {
     sina : `${base_site}sina`,
     payment_fish_image : `${base_site}payment_fish_image`,
     submit_user : `${base_site}register_user_prime`,
+    staff_work_report : `${base_site}staff_work_report/`
 }
 export default urls;
