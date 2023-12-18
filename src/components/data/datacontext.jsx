@@ -27,6 +27,8 @@ const seller_lead_pcaks_data =
 const call_results_data =
   JSON.parse(localStorage.getItem("call_results")) || false;
 const products_data = JSON.parse(localStorage.getItem("all-products")) || false;
+const all_users_data =
+  JSON.parse(localStorage.getItem("users-summary")) || false;
 const DataContext = createContext();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(user_data);
@@ -119,13 +121,15 @@ const DataProvider = ({ children }) => {
     seller_lead_pcaks_data
   );
   const [call_results, set_call_results] = useState(call_results_data);
+  const [all_users, set_all_users] = useState(all_users_data);
   useEffect(() => {
     const is_login_page = window.location.pathname === "/login";
     const is_time = last_login_check(last_login, this_time_login);
 
-    if (!user) {
+    if (!user && !is_login_page) {
       window.location.pathname = "/login";
     } else {
+      get_seller_lead_packs();
       if (is_time) {
         get_senarios();
         get_lead_sources();
@@ -134,7 +138,8 @@ const DataProvider = ({ children }) => {
         get_sellers();
         get_call_results();
         get_products();
-        get_seller_lead_packs();
+        get_users_summary();
+        // get_seller_lead_packs();
       } else {
         if (!senarios_data) {
           get_senarios();
@@ -154,9 +159,15 @@ const DataProvider = ({ children }) => {
         if (!products) {
           get_products();
         }
-        if (!seller_lead_pcaks_data) {
-          get_seller_lead_packs();
+        if (!call_results_data) {
+          get_call_results();
         }
+        if (!all_users_data) {
+          get_users_summary();
+        }
+        // if (!seller_lead_pcaks_data) {
+        //   get_seller_lead_packs();
+        // }
       }
     }
   }, []);
@@ -467,6 +478,25 @@ const DataProvider = ({ children }) => {
         console.log(e);
       });
   };
+  const get_users_summary = () => {
+    axios
+      .get(urls.all_users_summary)
+      .then((res) => {
+        const { error, response, result } = res.data;
+        if (result) {
+          set_all_users(response);
+          localStorage.setItem("users-summary", JSON.stringify(response));
+          // console.log(response.filter((r) => !r.phone_number));
+        } else {
+          alert("مشکلی پیش آمده");
+          console.log(error);
+        }
+      })
+      .catch((e) => {
+        alert("مشکلی پیش آمده");
+        console.log(e.message, e);
+      });
+  };
   /* main apis */
 
   return (
@@ -495,12 +525,15 @@ const DataProvider = ({ children }) => {
         formular,
         out_side_formular_setter,
         lead_packs,
+        get_lead_packs,
         out_side_lead_packs_setter,
         sellers,
         seller_lead_pcaks,
         call_results,
         out_side_call_results_setter,
         products,
+        get_seller_lead_packs,
+        all_users,
       }}
     >
       {children}

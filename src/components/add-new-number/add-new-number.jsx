@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import LittleLoading from "../reuseables/little-loading";
 import { DataContext } from "../data/datacontext";
 import urls from "../../urls/url";
+import axios from "axios";
 const Add_new_number = () => {
+  const { user } = useContext(DataContext);
   const [pause, set_pause] = useState(false);
   const [phone_number, set_phone_number] = useState(false);
   const [phone_number_err, set_phone_number_err] = useState(false);
@@ -25,8 +27,28 @@ const Add_new_number = () => {
       set_pause(true);
       const send_obj = {
         phone_number: phone_number,
+        staff_id: user.id,
       };
       console.log(send_obj);
+      axios
+        .post(urls.set_single_lead_in_default_leadpack, send_obj)
+        .then((res) => {
+          const { result, response, error } = res.data;
+          console.log(res.data);
+          if (result) {
+            alert("شماره با موفقیت ذخیره شد");
+            window.location.reload();
+          } else {
+            alert("مشکلی پیش آمده");
+            console.log(error);
+          }
+          set_pause(false);
+        })
+        .catch((e) => {
+          console.log(e.message);
+          alert("مشکلی پیش آمده");
+          set_pause(false);
+        });
     } else {
       alert("اطلاعات به درستی وارد نشده");
     }

@@ -14,6 +14,8 @@ import SubmitSale from "./components/submit-sale/submit-sale";
 import SellersReport from "./components/sellers-reports/sellers-report";
 import SingleSellerReport from "./components/single-seller-report/single-seller-report";
 import Add_new_number from "./components/add-new-number/add-new-number";
+import My_sales from "./components/my-sales/my-sales";
+import My_sale_month from "./components/my-sale-month/my-sale-month";
 
 function App() {
   const { user } = useContext(DataContext);
@@ -30,6 +32,8 @@ function App() {
                <Route path="/make-lead-pack" exact component={MakeLeadPackPage} />
                <Route path="/my-leads" exact component={LeadsPage} />
                <Route path="/login" exact component={Login} />
+               <Route path="/my-sales" exact component={My_sales} />
+               <Route path="/sale-report/:id" exact component={My_sale_month} />
                <Route path="/add-phone-number" exact component={Add_new_number} />
                <Route path="/submit-sale" exact component={SubmitSale} />
                <Route path="/sellers-report" exact component={SellersReport} />

@@ -2285,3 +2285,185 @@ body {
     }
 }
 /* add new number page */
+
+/* my sales page */
+.my-sales-page{
+    width: 100%;
+    max-width: 881px;
+    background-color: $color-3;
+    border-radius: 20px;
+    @include flexMixin(column, flex-start, center);
+    gap: 20px;
+    padding: 35px;
+    .section-header {
+        width: 100%;
+        @include flexMixin(row, space-between, center);
+        padding: 0 0 10px;
+        border-bottom: 2px solid $color-5;
+    }
+    .page-title {
+        font-size: 21px;
+    }
+    .seller-months{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        row-gap: 10px;
+        column-gap: 10px;
+    }
+    .month-wrapper{
+        width: 100%;
+        @include flexMixin(row,center,center);
+        height: 50px;
+        font-size: 17px;
+        color: #fff;
+        background-color: #030330;
+        border-radius: 20px;
+        font-weight: bold;
+    }
+}
+/* my sales page */
+/* my sale month page */
+.my-sale-month-page{
+    width: 100%;
+    max-width: 881px;
+    background-color: $color-3;
+    border-radius: 20px;
+    @include flexMixin(column, flex-start, center);
+    gap: 40px;
+    padding: 35px;
+    .section-header {
+        width: 100%;
+        @include flexMixin(row, space-between, center);
+        padding: 0 0 10px;
+        border-bottom: 2px solid $color-5;
+    }
+    .page-title {
+        font-size: 21px;
+    }
+    .month-infos-wrapper{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        row-gap: 20px;
+        column-gap: 40px;
+        padding: 0 10px;
+    }
+    .month-info-wrapper{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+    }
+    .month-info-title{
+        font-size: 18px;
+    }
+    .month-info-value{
+        width: 200px;
+        background-color: #030330;
+        height: 40px;
+        @include flexMixin(row,center,center);
+        border-radius: 20px;
+        font-size: 16px;
+    }
+    .border-need{
+        border-bottom: 1px solid $color-5;
+        padding: 0 0 20px;
+    }
+    .month-payments-table{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        gap: 20px;
+    }
+    .payment-table-row{
+        width: 100%;
+        @include flexMixin(row,flex-start,flex-start);
+        font-size: 15px;
+        padding: 20px 10px;
+        background-color: #030330;
+        border-radius: 20px;
+        gap: 10px;
+        position: relative;
+        *{
+            flex: 1;
+        }
+    }
+    .payment-table-header-row{
+        font-size: 13px;
+        font-weight: bold;
+        color: #7E818A;
+        height: 50px;
+        padding: 0 10px;
+        background-color: transparent;
+    }
+    .payment-table-item{
+        @include flexMixin(column,flex-start,center);
+        gap: 10px;
+    }
+    .date-col{
+        flex: 0 0 90px;
+    }
+    .prod-count-col{
+        flex: 0 0 100px;
+    }
+    .share-col{
+        flex: 0 0 130px;
+        word-spacing: 3px;
+    }
+    .price-col{
+        flex: 0 0 150px;
+        word-spacing: 3px;
+    }
+    .phone-number-col{
+        flex: 0 0 120px;
+    }
+    .samll-font{
+        font-size: 13px;
+    }
+    .show-prod-btn{
+        width: 130px;
+        font-weight: bold;
+        background-color: $color-5;
+        color: $color-3;
+        flex: 0 0 30px;
+        border-radius: 5px;
+        @include flexMixin(row,center,center);
+        cursor: pointer;
+        transition: $transition;
+        border: 1px solid $color-5;
+        &:hover{
+            color: $color-5;
+            background-color: transparent;
+        }
+    }
+    .show-prod-btn.shown{
+        color: $color-5;
+        background-color: transparent;
+    }
+    .prod-item{
+        font-size: 13px;
+        @include flexMixin(row,center,center);
+        width: 100%;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid $color-5;
+        background-color: $color-5;
+        color: $color-3;
+        font-weight: bold;
+        text-align: center;
+    }
+    .manager-label{
+        position: absolute;
+        width: 60px;
+        right: 0px;
+        // top: calc(50% - 10px);
+        top: -10px;
+        height: 20px;
+        font-size: 12px;
+        background-color: $red-color;
+        color: #fff;
+        border-radius: 5px;
+        font-weight: bold;
+        padding: 2px 0 0;
+        @include flexMixin(row,center,center);
+    }
+}
+/* my sale month page */

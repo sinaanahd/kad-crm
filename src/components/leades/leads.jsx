@@ -16,7 +16,8 @@ const pack_data = JSON.parse(localStorage.getItem("pack-data")) || false;
 const leads_data = JSON.parse(localStorage.getItem("leads-data")) || false;
 
 const LeadsPage = () => {
-  const { lead_packs, seller_lead_pcaks } = useContext(DataContext);
+  const { lead_packs, seller_lead_pcaks, get_lead_packs } =
+    useContext(DataContext);
   const [show_lead_packs, set_show_lead_packs] = useState(false);
   const [lead_pack, set_lead_pack] = useState(pack_data);
   const [leads, set_leads] = useState(false);
@@ -26,7 +27,10 @@ const LeadsPage = () => {
     seller_lead_pcaks && lead_packs
       ? lead_packs.filter((lp) => seller_lead_pcaks.includes(lp.id))
       : false;
-
+  useEffect(() => {
+    get_lead_packs();
+    // get_seller_lead_packs();
+  });
   useEffect(() => {
     if (lead_pack) {
       localStorage.setItem("pack-data", JSON.stringify(lead_pack));

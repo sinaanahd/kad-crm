@@ -55,9 +55,24 @@ const SideBar = () => {
     },
     {
       id: 6,
+      authorized_levels: [40],
+      text: "ثبت شماره",
+      url: "add-phone-number",
+      imgs: [my_courses_icon],
+    },
+    {
+      id: 7,
+      authorized_levels: [40],
+      text: "فروش های من",
+      url: "my-sales",
+      imgs: [my_courses_icon],
+    },
+    {
+      id: 8,
       authorized_levels: [],
       text: "",
       url: "",
+      imgs: [my_courses_icon],
     },
   ];
   useEffect(() => {

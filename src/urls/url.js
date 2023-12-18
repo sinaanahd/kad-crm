@@ -18,6 +18,8 @@ const urls = {
     sina : `${base_site}sina`,
     payment_fish_image : `${base_site}payment_fish_image`,
     submit_user : `${base_site}register_user_prime`,
-    staff_work_report : `${base_site}staff_work_report/`
+    staff_work_report : `${base_site}staff_work_report/`,
+    set_single_lead_in_default_leadpack : `${base_site}set_single_lead_in_default_leadpack`,
+    staff_sales_report : `${base_site}staff_sales_report/`
 }
 export default urls;

@@ -20,6 +20,7 @@ const SingleSellerReport = () => {
   const [show_mode, set_show_mode] = useState("all");
   const [total_sale, set_total_sale] = useState(false);
   const [total_calls, set_total_calls] = useState(false);
+  const [total_seller_share, set_total_seller_share] = useState(false);
   useEffect(() => {
     axios
       .get(urls.staff_work_report + page_slug)
@@ -59,11 +60,12 @@ const SingleSellerReport = () => {
   const make_full_month = (calls, sales) => {
     let total_amount = 0;
     let total_calls = 0;
+    let seller_share = 0;
     const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
     const month = parseInt(p2e(page_slug.split("-")[1]));
     const year = parseInt(page_slug.split("-")[2]);
     const days = [];
-    if (month < 6) {
+    if (month <= 6) {
       for (let i = 1; i <= 31; i++) {
         days.push(i);
       }
@@ -91,6 +93,13 @@ const SingleSellerReport = () => {
         );
         if (date_pays.length !== 0) {
           date_payments = date_payments.concat(date_pays);
+          date_pays.forEach((dp) => {
+            if (s.pourcent) {
+              seller_share += (dp.payment_amount * s.pourcent) / 100;
+            } else {
+              seller_share += (dp.payment_amount * 5) / 100;
+            }
+          });
         }
       });
       const obj = {
@@ -107,6 +116,7 @@ const SingleSellerReport = () => {
     });
     set_total_sale(total_amount);
     set_total_calls(total_calls);
+    set_total_seller_share(seller_share);
     set_all_dates(all_dates);
   };
   const no_call = all_dates
@@ -237,6 +247,17 @@ const SingleSellerReport = () => {
             <span className="sale-amount-wrapper">
               {total_sale || total_sale === 0 ? (
                 split_in_three(convert_to_persian(total_sale))
+              ) : (
+                <LittleLoading />
+              )}{" "}
+              تومان
+            </span>
+          </div>
+          <div className="total-month-sale-wrapper call-counts-reports">
+            <h2 className="total-sale-title ">سهم فروشنده</h2>
+            <span className="sale-amount-wrapper">
+              {total_seller_share || total_seller_share === 0 ? (
+                split_in_three(convert_to_persian(total_seller_share))
               ) : (
                 <LittleLoading />
               )}{" "}
