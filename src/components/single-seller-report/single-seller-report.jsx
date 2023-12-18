@@ -21,6 +21,7 @@ const SingleSellerReport = () => {
   const [total_sale, set_total_sale] = useState(false);
   const [total_calls, set_total_calls] = useState(false);
   const [total_seller_share, set_total_seller_share] = useState(false);
+  const [confirmed_seller_share, set_confirmed_seller_share] = useState(false);
   useEffect(() => {
     axios
       .get(urls.staff_work_report + page_slug)
@@ -31,7 +32,7 @@ const SingleSellerReport = () => {
           const sales = response.sales;
           set_calls(calls);
           set_sales(sales);
-          console.log(res.data.response);
+          // console.log(res.data.response);
           make_full_month(calls, sales);
         } else {
           console.log(error);
@@ -61,6 +62,7 @@ const SingleSellerReport = () => {
     let total_amount = 0;
     let total_calls = 0;
     let seller_share = 0;
+    let seller_confirmed_share = 0;
     const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
     const month = parseInt(p2e(page_slug.split("-")[1]));
     const year = parseInt(page_slug.split("-")[2]);
@@ -96,6 +98,10 @@ const SingleSellerReport = () => {
           date_pays.forEach((dp) => {
             if (s.pourcent) {
               seller_share += (dp.payment_amount * s.pourcent) / 100;
+              if (dp.manager_confirmation) {
+                seller_confirmed_share +=
+                  (dp.payment_amount * s.pourcent) / 100;
+              }
             } else {
               seller_share += (dp.payment_amount * 5) / 100;
             }
@@ -111,12 +117,15 @@ const SingleSellerReport = () => {
       };
       all_dates.push(obj);
       date_payments.forEach((p) => {
+        if (p.manager_confirmation) {
+        }
         total_amount += p.payment_amount;
       });
     });
     set_total_sale(total_amount);
     set_total_calls(total_calls);
     set_total_seller_share(seller_share);
+    set_confirmed_seller_share(seller_confirmed_share);
     set_all_dates(all_dates);
   };
   const no_call = all_dates
@@ -258,6 +267,17 @@ const SingleSellerReport = () => {
             <span className="sale-amount-wrapper">
               {total_seller_share || total_seller_share === 0 ? (
                 split_in_three(convert_to_persian(total_seller_share))
+              ) : (
+                <LittleLoading />
+              )}{" "}
+              تومان
+            </span>
+          </div>
+          <div className="total-month-sale-wrapper call-counts-reports">
+            <h2 className="total-sale-title ">پورسانت تایید شده</h2>
+            <span className="sale-amount-wrapper">
+              {confirmed_seller_share || confirmed_seller_share === 0 ? (
+                split_in_three(convert_to_persian(confirmed_seller_share))
               ) : (
                 <LittleLoading />
               )}{" "}
