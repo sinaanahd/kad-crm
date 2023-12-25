@@ -12,6 +12,7 @@ import dashboard_icon from "../../asset/images/side-bar/dashboard-icon.svg";
 import dashboard_icon_active from "../../asset/images/side-bar/dashboard-icon-active.svg";
 import arrowDown from "../../asset/images/side-bar/arrow-down.svg";
 import { DataContext } from "../data/datacontext";
+import ReloadBtn from "../reuseables/reload-btn";
 const SideBar = () => {
   const { user } = useContext(DataContext);
   const [page_decider, set_page_decider] = useState(false);
@@ -82,8 +83,9 @@ const SideBar = () => {
   }, []);
   useEffect(() => {
     if (user) {
-      const menu_items = all_pages.filter((p) =>
-        p.authorized_levels.includes(user.level)
+      const menu_items = all_pages.filter(
+        (p) => p.authorized_levels.includes(user.level)
+        // true
       );
       set_menu_items(menu_items);
     }

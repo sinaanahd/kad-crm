@@ -52,6 +52,11 @@ const SubmitSale = () => {
         ) : (
           <></>
         )}
+        {/* <PaymentsData
+          sale={sale}
+          set_sale={set_sale}
+          set_is_final={set_is_final}
+        /> */}
         {is_final ? (
           <FinalFactor
             sale={sale}
@@ -61,6 +66,11 @@ const SubmitSale = () => {
         ) : (
           <></>
         )}
+        {/* <FinalFactor
+          sale={sale}
+          selected_user={selected_user}
+          products={products}
+        /> */}
       </div>
     </>
   );

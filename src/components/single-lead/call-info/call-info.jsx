@@ -25,7 +25,7 @@ const CallInfo = ({ lead, set_lead }) => {
     }
   };
   const send_call = () => {
-    if (call_result && note) {
+    if (call_result) {
       set_pause(true);
       set_note(false);
       set_show_results(false);
@@ -36,9 +36,9 @@ const CallInfo = ({ lead, set_lead }) => {
         phone_number: lead.phone_number,
         staff_id: crm_user.id,
         callResult_id: call_result.id,
-        note: note,
+        note: note ? note : null,
       };
-      console.log(send_obj);
+      // console.log(send_obj);
       axios
         .post(urls.call, send_obj)
         .then((res) => {
@@ -149,7 +149,9 @@ const CallInfo = ({ lead, set_lead }) => {
                 <span className="call-inputs-or-result">
                   <span className="call-note-title">یادداشت</span>
                   <span className="text-area-part">
-                    <p className="note-result">{c.call_note}</p>
+                    <p className="note-result">
+                      {c.call_note ? c.call_note : "یادداشتی وارد نشده !"}
+                    </p>
                   </span>
                 </span>
               </div>

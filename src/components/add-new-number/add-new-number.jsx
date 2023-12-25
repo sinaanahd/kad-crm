@@ -36,8 +36,10 @@ const Add_new_number = () => {
           const { result, response, error } = res.data;
           console.log(res.data);
           if (result) {
+            // console.log(response);
             alert("شماره با موفقیت ذخیره شد");
-            window.location.reload();
+            // window.location.reload();
+            window.location.pathname = `/lead/${response}`;
           } else {
             alert("مشکلی پیش آمده");
             console.log(error);

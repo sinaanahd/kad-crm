@@ -10,26 +10,32 @@ import LittleLoading from "../reuseables/little-loading";
 import axios from "axios";
 import urls from "../../urls/url";
 import Lead from "./lead/lead";
+import ReloadBtn from "../reuseables/reload-btn";
 
 const pack_data = JSON.parse(localStorage.getItem("pack-data")) || false;
 // const pack_data = false;
 const leads_data = JSON.parse(localStorage.getItem("leads-data")) || false;
 
 const LeadsPage = () => {
-  const { lead_packs, seller_lead_pcaks, get_lead_packs } =
-    useContext(DataContext);
+  const {
+    lead_packs,
+    seller_lead_pcaks,
+    get_lead_packs,
+    set_seller_lead_pcaks,
+    get_seller_lead_packs,
+    set_lead_packs,
+  } = useContext(DataContext);
   const [show_lead_packs, set_show_lead_packs] = useState(false);
   const [lead_pack, set_lead_pack] = useState(pack_data);
   const [leads, set_leads] = useState(false);
   const [filtered_leads, set_filtered_leads] = useState(false);
-  const [lp_load, set_lp_load] = useState(leads_data);
+  // const [lp_load, set_lp_load] = useState(leads_data);
   const my_seller_lead_packs =
     seller_lead_pcaks && lead_packs
       ? lead_packs.filter((lp) => seller_lead_pcaks.includes(lp.id))
       : false;
   useEffect(() => {
     get_lead_packs();
-    // get_seller_lead_packs();
   });
   useEffect(() => {
     if (lead_pack) {
@@ -46,13 +52,12 @@ const LeadsPage = () => {
             alert("مشکلی پیش آمده");
             console.log(error);
           }
-          // console.log(res.data);
         })
         .catch((e) => console.log(e.massage));
     }
   }, [lead_pack]);
   useEffect(() => {
-    if (!lead_pack && seller_lead_pcaks) {
+    if (!lead_pack && seller_lead_pcaks && lead_packs) {
       if (seller_lead_pcaks.length !== 0) {
         const inside_lead_pack = lead_packs.find((lp) =>
           seller_lead_pcaks.includes(lp.id)
@@ -97,7 +102,14 @@ const LeadsPage = () => {
       set_filtered_leads(false);
     }
   };
-  // console.log(leads);
+  const handle_seller_lead_packs_reload = () => {
+    get_lead_packs();
+    set_seller_lead_pcaks(false);
+    get_seller_lead_packs();
+    set_lead_packs(false);
+    set_lead_pack(false);
+    set_leads(false);
+  };
   return (
     <>
       <Helmet>
@@ -141,6 +153,7 @@ const LeadsPage = () => {
             </div>
           </section>
           <section className="filters-box-area">
+            <ReloadBtn click={handle_seller_lead_packs_reload} />
             <div className="choose-lead-pack">
               <span
                 className="choose-lead-pack-box"
@@ -210,12 +223,12 @@ const LeadsPage = () => {
             <div className="number-header-row number-row">
               <span className="header-item number-item counter-col">ردیف</span>
               <span className="header-item number-item first-item">شماره</span>
+              <span className="header-item number-item">نام</span>
               <span className="header-item number-item call-counts-col">
                 تعداد تماس
               </span>
               <span className="header-item number-item">پایه</span>
               <span className="header-item number-item">رشته</span>
-              <span className="header-item number-item">پورسانت</span>
               <span className="header-item number-item date-item">
                 منبع شماره
               </span>

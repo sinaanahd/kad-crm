@@ -83,6 +83,14 @@ const PaymentsData = ({ sale, set_is_final, set_sale }) => {
             />
           ))
         ) : (
+          // <Payment
+          //   sale={false}
+          //   payment={false}
+          //   count={0}
+          //   key={false}
+          //   handleFileChange={handleFileChange}
+          //   file={file}
+          // />
           <LittleLoading />
         )}
       </div>

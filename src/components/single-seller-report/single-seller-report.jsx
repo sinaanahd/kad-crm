@@ -10,6 +10,7 @@ import find_month from "../functions/find-month";
 import * as shamsi from "shamsi-date-converter";
 import convert_days from "../functions/convert-days";
 import DateRow from "./date-row/date-row";
+import ReloadBtn from "../reuseables/reload-btn";
 
 const SingleSellerReport = () => {
   const { sellers, products } = useContext(DataContext);
@@ -23,6 +24,9 @@ const SingleSellerReport = () => {
   const [total_seller_share, set_total_seller_share] = useState(false);
   const [confirmed_seller_share, set_confirmed_seller_share] = useState(false);
   useEffect(() => {
+    get_seller_data();
+  }, []);
+  const get_seller_data = (e) => {
     axios
       .get(urls.staff_work_report + page_slug)
       .then((res) => {
@@ -43,7 +47,7 @@ const SingleSellerReport = () => {
         console.log(e.message);
         alert("مشکلی پیش آمده");
       });
-  }, []);
+  };
   const year = convert_to_persian(parseInt(page_slug.split("-")[2]));
   const month = find_month(parseInt(page_slug.split("-")[1]));
   const seller = sellers
@@ -156,6 +160,15 @@ const SingleSellerReport = () => {
         return [];
     }
   };
+  const handle_relaod = () => {
+    set_all_dates(false);
+    set_show_mode("all");
+    set_total_calls(false);
+    set_total_sale(false);
+    set_total_seller_share(false);
+    set_confirmed_seller_share(false);
+    get_seller_data();
+  };
   return (
     <>
       <Helmet>
@@ -164,6 +177,7 @@ const SingleSellerReport = () => {
         </title>
       </Helmet>
       <section className="single-seller-report-page-wrapper">
+        <ReloadBtn click={handle_relaod} />
         <div className="section-header">
           <h1 className="seller-name-date">
             {seller ? seller.fullname : ""} - {month} {year}

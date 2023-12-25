@@ -19,8 +19,8 @@ body {
     width: 100% !important;
     min-width: 300px;
     font-size: 14px;
-    color: $color-1;
-    background-color: $background-color;
+    color: $color-4-new;
+    background-color: $background-color-new;
     * {
         box-sizing: border-box !important;
         margin: 0;
@@ -74,11 +74,17 @@ body {
     max-width: 1300px;
 }
 
+/* reload btn */
+.reload-btn-wrapper{
+    @include flexMixin(row,center,center);
+    cursor: pointer;
+}
+/* reload btn */
 .main-header{
     width: 100%;
     @include flexMixin(row,space-between,center);
     height: 64px;
-    background-color: $color-3;
+    background-color: #fff;
     padding: 0 15px 0 35px;
     border-radius: 0 0 15px 15px;
     margin: 0 0 16px;
@@ -154,7 +160,7 @@ body {
 .side-bar-wrapper{
     flex: 0 0 256px;
     @include flexMixin(row,center,center);
-    background-color: $color-3;
+    background-color: #fff;
     border-radius: 20px;
     padding: 32px 15px;
     .side-bar-items{
@@ -172,13 +178,13 @@ body {
         @include flexMixin(row,flex-start,center);
         width: 100%;
         gap: 6px;
-        color: $color-1;
+        color: #8E8E93;
     }
     .side-bar-item.active{
         border-radius: 4px;
-        background: rgba($color: $color-5, $alpha: 0.1);
+        background: rgba(219, 155, 255 , 0.1);
         .link-side-bar{
-            color: $color-5;
+            color: $color-4-new;
         }
     }
     .img-wrapper{
@@ -201,12 +207,12 @@ body {
     gap: 15px;
     max-width: 100%;
     width: 925px;
-    background-color: $color-3;
+    background-color: #fff;
     padding: 35px;
     border-radius: 20px;
     .box-header{
         width: 100%;
-        border-bottom: 2px solid $color-1;
+        border-bottom: 2px solid $color-1-new;
         padding: 0 0 20px;
         margin: 0 0 21px;
     }
@@ -233,15 +239,15 @@ body {
     .dark-bg{
         input{
             width: 100%;
-            color: $color-1;
-            background-color: $background-color;
+            color: $color-1-new;
+            background-color: $color-3-new;
             height: 100%;
             padding: 0 26px;
             font-size: 18px;
         }
     }
     .upload-box{
-        background-color: $color-2;
+        background-color: $color-3-new;
         padding: 2px 26px 0 15px;
         #excel-input{
             display: none;
@@ -251,19 +257,19 @@ body {
             height: 32px;
             border-radius: 12px;
             @include flexMixin(row,center,center);
-            border: 1px solid $color-1;
+            border: 1px solid $color-4-new;
             font-size: 15px;
             padding: 2px 0 0;
             cursor: pointer;
             transition: $transition;
             &:hover{
-                color: $background-color;
-                background-color: $color-1;
+                background-color: $color-4-new;
+                color: #fff;
             }
         }
     }
     .custom-select{
-        border: 1px solid $color-1;
+        border: 1px solid $color-1-new;
         padding: 2px 26px 0 15px;
         cursor: pointer;
         img{
@@ -275,7 +281,7 @@ body {
         @include flexMixin(row,flex-start,center);
         gap: 10px;
         padding: 0 44px;
-        background: #020222;
+        background: $color-2-new;
         height: 46px;
         border-radius: 12px;
         cursor: pointer;
@@ -295,22 +301,22 @@ body {
         font-weight: bold;
         font-size: 18px;
         @include flexMixin(row,center,center);
-        background-color: $color-5;
-        color: $background-color;
+        background-color: $color-1-new;
+        color: #fff;
         cursor: pointer;
         transition: $transition;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
         padding: 2px 0 0;
         &:hover{
-            background-color: transparent;
-            color: $color-5;
+            background-color: #fff;
+            color: $color-1-new;
         }
     }
     .choose-box-item{
         position: absolute;
         top: 60px;
-        background-color: $color-5;
-        color: $background-color;
+        background-color: $color-3-new;
+        color: $color-1-new;
         @include flexMixin(column,flex-start,center);
         padding: 20px;
         border-radius: 12px;
@@ -329,8 +335,11 @@ body {
             width: 100%;
             padding: 0 20px;
             border-radius: 12px;
-            background-color: $background-color;
-            color: $color-1;
+            background-color: $color-2-new;
+            color: $color-1-new;
+            &::placeholder{
+                color: #000;
+            }
         }
     }
     .choose-items{
@@ -344,8 +353,8 @@ body {
         font-size: 14px;
         @include flexMixin(row,center,center);
         height: 30px;
-        background-color: $background-color;
-        color: $color-1;
+        background-color: $color-1-new;
+        color: #fff;
         padding: 0 20px;
         border-radius: 20px;
     }
@@ -363,7 +372,7 @@ body {
     z-index: 99;
     .pop-up-box{
         width: 510px;
-        background-color: $background-color;
+        background-color: #fff;
         padding: 40px 50px;
         border-radius: 20px;
         @include flexMixin(column,flex-start,center);
@@ -381,9 +390,9 @@ body {
         font-size: 25px;
         font-weight: bold;
         padding: 0 0 10px;
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
         margin: 21px;
-        color: $color-5;
+        color: $color-4-new;
     }
     .pop-options{
         width: 100%;
@@ -400,11 +409,14 @@ body {
     input,textarea{
         flex: 0 0 269px;
         height: 46px;
-        background-color: $color-3;
+        background-color: $color-2-new;
         padding: 0 31px;
         font-size: 18px;
-        color: $color-1;
+        color: $color-1-new;
         border-radius: 12px;
+        &::placeholder{
+            color: $color-1-new;
+        }
     }
     textarea{
         height: 210px;
@@ -416,8 +428,8 @@ body {
         @include flexMixin(row,center,center);
         height: 47px;
         border-radius: 24px;
-        background-color: $color-5;
-        color: $background-color;
+        background-color: $color-1-new;
+        color: #fff;
         font-size: 18px;
         font-weight: bold;
         cursor: pointer;
@@ -442,14 +454,14 @@ body {
         border-radius: 20px;
         @include flexMixin(column,flex-start,center);
         gap: 40px;
-        background-color: $color-3;
+        background-color: #fff;
         padding: 30px 35px;
     }
     .box-header{
         font-size: 21px;
         font-weight: bold;
         padding: 0 0 14px;
-        border-bottom: 2px solid $color-1;
+        border-bottom: 2px solid $color-4-new;
         width: 100%;
         @include flexMixin(row,space-between,center);
     }
@@ -470,12 +482,18 @@ body {
     }
     .filters-box-area{
         width: 520px;
-        background-color: $color-3;
+        background-color: #fff;
         height: 335px;
         border-radius: 20px;
         @include flexMixin(column, space-between, center);
         padding: 30px 35px;
         gap: 20px;
+        position: relative;
+        .reload-btn-wrapper{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
     }
     .choose-lead-pack{
         width: 100%;
@@ -486,7 +504,7 @@ body {
         width: 100%;
         @include flexMixin(row,space-between,center);
         height: 46px;
-        border: 1px solid $color-1;
+        border: 1px solid $color-1-new;
         padding: 2px 30px 0;
         border-radius: 12px;
         font-size: 18px;
@@ -507,7 +525,7 @@ body {
         @include flexMixin(row,flex-end,center);
         input{
             width: 100%;
-            background-color: #030330;
+            background-color: $color-2-new;
             border-radius: 12px;
             height: 46px;
             padding: 0 20px;
@@ -519,7 +537,7 @@ body {
         font-size: 18px;
     }
     .last-call-box{
-        border: 1px solid $color-1;
+        border: 1px solid $color-1-new;
         flex: 0 0 187px;
         height: 46px;
         @include flexMixin(row,space-between,center);
@@ -536,7 +554,7 @@ body {
         gap: 5px;
         position: absolute;
         top: 50px;
-        background-color: $color-5;
+        background-color: $color-2-new;
         width: 100%;
         padding:10px 20px;
         border-radius: 12px;
@@ -547,7 +565,7 @@ body {
         border-radius: 15px;
         @include flexMixin(row,center,center);
         padding: 0 10px;
-        background-color: $background-color;
+        background-color: $color-1-new;
         font-size: 14px;
         cursor: pointer;
     }
@@ -556,7 +574,7 @@ body {
         @include flexMixin(row,center,center);
         height: 35px;
         font-weight: bold;
-        background-color: $color-5;
+        background-color: #fff;
         border-radius: 24px;
         font-size: 15px;
         cursor: pointer;
@@ -566,7 +584,7 @@ body {
         max-width: 1000px;
         @include flexMixin(column,flex-start,center);
         gap: 40px;
-        background-color: $color-3;
+        background-color: #fff;
         border-radius: 20px;
         padding: 28px 35px;
     }
@@ -575,12 +593,13 @@ body {
         @include flexMixin(row,flex-end,center);
         position: relative;
         input{
-            background-color: $color-2;
+            background-color: $color-2-new;
             border-radius: 12px;
             color: #fff;
             width: 100%;
             height: 30px;
             padding: 0 40px 0 10px;
+            color: $color-1-new;
         }
         img{
             position: absolute;
@@ -598,7 +617,7 @@ body {
         width: 100%;
         @include flexMixin(row,space-between,center);
         height: 68px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 14px;
         padding: 0 23px;
     }
@@ -626,8 +645,8 @@ body {
     .go-to-lead-page{
         width: 124px;
         height: 33px;
-        border: 1px solid $color-5;
-        color: $color-5;
+        border: 1px solid $color-1-new;
+        color: $color-1-new;
         border-radius: 12px;
         @include flexMixin(row,center,center);
         padding: 2px 0 0;
@@ -638,7 +657,7 @@ body {
 /* single-lead-page */
 .single-lead-page{
     width: 882px;
-    background-color: $color-3;
+    background-color: #fff;
     border-radius: 20px;
     padding: 36px 51px;
     @include flexMixin(column,flex-start,center);
@@ -647,7 +666,7 @@ body {
         width: 100%;
         padding: 0 0 15px;
         @include flexMixin(row,space-between,center);
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
     }
     .box-title{
         font-weight: bold;
@@ -658,7 +677,7 @@ body {
         height: 35px;
         @include flexMixin(row,center,center);
         border-radius: 24px;
-        background-color: #A667CA;
+        background-color: $color-1-new;
         color: #fff;
     }
     .main-columns{
@@ -674,7 +693,7 @@ body {
     .lead-datas{
         width: 100%;
         padding: 22px 38px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius : 20px;
         @include flexMixin(column,flex-start,center);
         gap: 13px;
@@ -696,28 +715,33 @@ body {
         width: 100%;
         @include flexMixin(column,center,center);
         gap: 10px;
-        input{
+        input , textarea{
             width: 100%;
             text-align: center;
             border-radius: 12px;
-            background: rgba(153, 194, 255, 0.30);
-            color: #fff;
+            background: $color-2-new;
+            color: $color-1-new;
             height: 28px;
             &::placeholder {
-                color: #fff;
+                color: $color-1-new;
                 opacity: 1;
             }
             &::-ms-input-placeholder {
-                color: #fff;
+                color: $color-1-new;
             }
+        }
+        textarea{
+            min-height: 50px;
+            resize: vertical;
+            padding: 10px;
         }
     }
     .select-box{
         @include flexMixin(row,center,center);
         width: 100%;
         border-radius: 12px;
-        background: rgba(153, 194, 255, 0.30);
-        color: #fff;
+        background: $color-2-new;
+        color: $color-1-new;
         height: 28px;
         cursor: pointer;
         font-size: 14px;
@@ -732,7 +756,7 @@ body {
         @include flexMixin(row,center,center);
         gap: 10px;
         padding: 20px;
-        background-color: $color-3;
+        background-color: $color-2-new;
         font-size: 14px;
         border-radius: 10px;
         top: 35px;
@@ -744,14 +768,15 @@ body {
         height: 25px;
         border-radius: 20px;
         cursor: pointer;
-        background-color: $color-2;
+        background-color: $color-1-new;
+        color: #fff;
         padding: 0 10px;
     }
     .submit-data-changes{
         width: 100%;
         @include flexMixin(row,center,center);
-        background-color: $color-1;
-        color: $color-3;
+        background-color: $color-1-new;
+        color: #fff;
         font-size: 15px;
         font-weight: bold;
         border-radius: 24px;
@@ -762,7 +787,7 @@ body {
     .senario-wrapper{
         width: 100%;
         padding: 22px 38px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 20px;
         @include flexMixin(column, flex-start, center);
         gap: 20px;
@@ -780,7 +805,7 @@ body {
     .porsant-wrapper , .call-history{
         width: 100%;
         padding: 22px 38px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 20px;
         @include flexMixin(column, flex-start, center);
         gap: 20px;
@@ -805,7 +830,8 @@ body {
         flex: 0 0 48px;
         height: 48px;
         border-radius: 12px;
-        background: #04044E;
+        background: $color-1-new;
+        color: #fff;
         padding: 2px 0 0;
     }
     .call-count{
@@ -823,7 +849,8 @@ body {
         flex: 0 0 48px;
         height: 48px;
         border-radius: 12px;
-        background: #04044E;
+        background: $color-1-new;
+        color: #fff;
         padding: 2px 0 0;
     }
     .call-results{
@@ -859,7 +886,7 @@ body {
         height: 46px;
         border-radius: 12px;
         @include flexMixin(row,center,center);
-        background-color: $color-2;
+        background-color: $color-2-new;
         cursor: pointer;
     }
     .call-results-options{
@@ -869,15 +896,14 @@ body {
         padding: 10px;
         position: absolute;
         top: 50px;
-        background-color: $color-3;
+        background-color: $color-2-new;
         border-radius: 12px;
-        border: 2px solid $background-color;
     }
     .call-result-option{
         width: 100%;
         @include flexMixin(row,center,center);
         border-radius: 10px;
-        background-color: $background-color;
+        background-color: $color-3-new;
         height: 30px;
         cursor: pointer;
     }
@@ -888,15 +914,15 @@ body {
         textarea{
             width: 100%;
             resize: none;
-            background-color: $color-2;
+            background-color: $color-2-new;
             border-radius: 12px;
             padding: 13px 20px;
             min-height: 107px;
-            color: #fff;
+            color: $color-4-new;
         }
         .note-result{
             width: 100%;
-            background-color: $color-2;
+            background-color: $color-2-new;
             border-radius: 12px;
             padding: 13px 20px;
             min-height: 107px;
@@ -933,7 +959,7 @@ body {
     z-index: 999999;
     @include flexMixin(column,center,center);
     gap: 20px;
-    background-color: $color-3;
+    background-color: $color-2-new;
     top: 0;
     right: 0;
     .title{
@@ -952,28 +978,28 @@ body {
             height: 40px;
             border-radius: 12px;
             padding: 0 10px;
-            background-color: $color-1;
+            background-color: $color-3-new;
         }
         .show-pass{
             width: 100px;
             @include flexMixin(row,center,center);
-            background-color: $color-1;
-            color: $color-3;
+            background-color: $color-1-new;
+            color: #fff;
             height: 40px;
             border-radius: 12px;
             font-weight: bold;
-            border: 1px solid $color-3;
+            border: 1px solid $color-1-new;
             cursor: pointer;
         }
     }
     .submit-entry-code{
         width: 300px;
         height: 40px;
-        background-color: $background-color;
+        background-color: $color-4-new;
         @include flexMixin(row,center,center);
         border-radius: 20px;
         font-size: 20px;
-        color: $color-1;
+        color: #fff;
         cursor: pointer;
     }
     .error-box{
@@ -997,7 +1023,7 @@ body {
     .box-style{
         width: 100%;
         @include flexMixin(column,flex-start,center);
-        background-color: $color-3;
+        background-color: #fff;
         padding: 20px 35px;
         border-radius: 20px;
         gap: 20px;
@@ -1006,7 +1032,7 @@ body {
         width: 100%;
         padding: 0 0 15px;
         @include flexMixin(row, space-between, center);
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
     }
     .box-title {
         font-weight: bold;
@@ -1014,20 +1040,19 @@ body {
     }
     .all-wrapper{
         width: 100%;
-        @include flexMixin(row,flex-start,center);
+        @include flexMixin(row,flex-start,flex-start);
         flex-wrap: wrap;
     }
     .lead-pack{
         flex: 0 0 calc(25% - 20px);
-        background-color: $background-color;
-        color: #fff;
+        background-color: $color-3-new;
+        color: $color-4-new;
         font-size: 16px;
         padding: 10px 20px;
         border-radius: 12px;
     }
     .all-formulars , .all-lead-sources{
         gap: 10px;
-        justify-content: center;
     }
     .all-lead-packs{
         gap: 20px;
@@ -1039,8 +1064,8 @@ body {
         padding: 20px;
     }
     .lead-pack-title{
-        background-color: $color-5;
-        color: $background-color;
+        background-color: $color-2-new;
+        color: $color-4-new;
         height: 40px;
         @include flexMixin(row,center,center);
         width: 100%;
@@ -1052,7 +1077,7 @@ body {
     }
     .edit-lead-pack-file-btn{
         width: 100%;
-        background-color: #A667CA;
+        background-color: $color-1-new;
         color: #fff;
         height: 30px;
         font-weight: bold;
@@ -1077,11 +1102,12 @@ body {
         .send-file-changes-btn{
             width: 100%;
             @include flexMixin(row,center,center);
-            background-color: $color-5;
+            background-color: $color-1-new;
             height: 30px;
             font-weight: bold;
             cursor: pointer;
             border-radius: 5px;
+            color: #fff;
         }
         .get-file-btn{
             width: 120px;
@@ -1089,8 +1115,8 @@ body {
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            color: $color-5;
-            border: 1px solid $color-5;
+            color: $color-1-new;
+            border: 1px solid $color-1-new;
             @include flexMixin(row,center,center);
             border-radius: 10px;
         }
@@ -1105,12 +1131,12 @@ body {
     }
     .item-value{
         font-size: 13px;
-        color: $color-1;
+        color: $color-1-new;
     }
     .formular{
         width: calc(20% - 20px);
         @include flexMixin(column,flex-start,center);
-        background-color: $background-color;
+        background-color: $color-3-new;
         padding: 20px;
         border-radius: 12px;
         gap: 20px;
@@ -1127,9 +1153,9 @@ body {
         flex: 0 0 40px;
         height: 40px;
         @include flexMixin(row,center,center);
-        background-color: $color-5;
+        background-color: $color-1-new;
         border-radius: 5px;
-        color: $background-color;
+        color: #fff;
     }
     .all-btns{
         width: 100%;
@@ -1145,9 +1171,10 @@ body {
         height: 30px;
         font-weight: bold;
         cursor: pointer;
+        color: #fff;
     }
     .edit-btn{
-        background-color: #A667CA;
+        background-color: $color-1-new;
     }
     .delete-btn{
         background-color: $red-color;
@@ -1155,7 +1182,7 @@ body {
     .lead-source{
         width: calc(20% - 20px);
         @include flexMixin(column, flex-start, center);
-        background-color: $background-color;
+        background-color: $color-3-new;
         padding: 20px;
         border-radius: 12px;
         gap: 20px;
@@ -1167,7 +1194,7 @@ body {
     .senario-wrapper{
         width: calc(50% - 10px);
         @include flexMixin(column, flex-start, flex-end);
-        background-color: $background-color;
+        background-color: $color-3-new;
         padding: 20px;
         border-radius: 12px;
         gap: 20px;
@@ -1193,7 +1220,7 @@ body {
         padding: 20px;
         border-radius: 12px; 
         text-align: right;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
         font-size: 15px;
         line-height: 30px;
     }
@@ -1209,7 +1236,7 @@ body {
     .call-result{
         min-width: 150px;
         @include flexMixin(column, flex-start, center);
-        background-color: $background-color;
+        background-color: $color-3-new;
         padding: 10px;
         border-radius: 12px;
         gap: 20px;
@@ -1224,10 +1251,10 @@ body {
             height: 30px;
             padding: 0 10px;
             border-radius: 5px;
-            background-color: $color-2;
-            color: #fff;
+            background-color: $color-2-new;
+            color: $color-4-new;
             &::placeholder{
-                color: #fff;
+                color: $color-4-new;
             }
         }
     }
@@ -1236,7 +1263,7 @@ body {
         height: 30px;
         border-radius: 5px;
         cursor: pointer;
-        background-color: #A667CA;
+        background-color: $color-1-new;
         color: #fff;
         font-weight: bold;
     }
@@ -1252,13 +1279,12 @@ body {
     width: 100%;
     @include flexMixin(column,flex-start,flex-start);
     gap: 20px;
-    color: #fff;
     .phone-part-wrapper{
         gap: 40px;
     }
     .box-style{
         border-radius: 20px;
-        background-color: $color-3;
+        background-color: #fff;
         padding: 35px;
         width: 100%;
         @include flexMixin(column, flex-start, center);
@@ -1267,7 +1293,7 @@ body {
     .section-header{
         width: 100%;
         padding: 0 0 17px;
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
         @include flexMixin(row,space-between,center); 
     }
     .header-title{
@@ -1278,14 +1304,14 @@ body {
         position: relative;
         @include flexMixin(row,flex-start,center);
         gap: 10px;
-        background-color: $color-2;
+        background-color: $color-3-new;
         height: 30px;
         width: 170px;
         padding: 10px 20px;
         border-radius: 12px;
         input{
             background-color: transparent;
-            color: #fff;
+            color: $color-1-new;
             height: 30px;
             width: 100%;
         }
@@ -1307,7 +1333,7 @@ body {
         width: 100%;
         flex: 0 0 68px;
         border-radius: 12px;
-        background-color: #030330;
+        background-color: $color-3-new;
         padding: 0 10px;
         *{
             flex: 1;
@@ -1327,8 +1353,9 @@ body {
         flex: 0 0 124px;
         height: 33px;
         border-radius: 12px;
-        background-color: $color-5;
+        background-color: $color-1-new;
         font-weight: bold;
+        color: #fff;
         cursor: pointer;
     }
     .no-user-found{
@@ -1362,10 +1389,9 @@ body {
         input{
             width: 254px;
             height: 46px;
-            background-color: #030330;
+            background-color: $color-3-new;
             border-radius: 12px;
             padding: 13px 16px;
-            color: #fff;
         }
     }
     .optional-text{
@@ -1379,7 +1405,7 @@ body {
         height: 46px;
         @include flexMixin(row,space-between,center);
         padding: 0 16px;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
         border-radius: 12px;
         font-size: 18px;
         cursor: pointer;
@@ -1397,8 +1423,8 @@ body {
         border-radius: 23.5px;
         font-size: 18px;
         font-weight: bold;
-        color: #030330;
-        background-color: $color-5;
+        color: #fff;
+        background-color: $color-1-new;
         cursor: pointer;
         padding: 2px 0 0;
     }
@@ -1406,7 +1432,7 @@ body {
         width: 100%;
         @include flexMixin(column,flex-start,center);
         padding: 10px 13px;
-        background-color: #303d83;
+        background-color: $color-3-new;
         border-radius: 12px;
         position: absolute;
         top: 50px;
@@ -1420,9 +1446,9 @@ body {
         @include flexMixin(row,center,center);
         cursor: pointer;
         transition: $transition;
-            border: 1px solid #303d83;
+            border: 1px solid $color-4-new;
         &:hover{
-            border: 1px solid $color-5;
+            border: 1px solid $color-1-new;
         }
     }
     .shop-col{
@@ -1449,7 +1475,7 @@ body {
         width: calc(50% - 7.5px);
         @include flexMixin(column,space-between,flex-start);
         padding:30px 12px 15px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 15px;
         position: relative;
         gap: 15px;
@@ -1478,23 +1504,23 @@ body {
         border-radius: 37px;
         height: 30px;
         font-weight: bold;
-        background-color: $color-5;
-        color: #030330;
+        background-color: $color-1-new;
+        color: #fff;
         cursor: pointer;
         transition: $transition;
-        border: 2px solid $color-5;
+        border: 2px solid $color-1-new;
         &:hover{
             transform: scale(1.05);
         }
     }
     .add-to-cart-btn.disable-btn{
         cursor: not-allowed;
-        color: $color-5;
-        background-color: #030330;
+        color: $color-1-new;
+        background-color: #fff;
     }
     .product-type{
         position: absolute;
-        background-color: #A667CA;
+        background-color: $color-1-new;
         width: 100px;
         @include flexMixin(row,center,center);
         height: 20px;
@@ -1503,6 +1529,7 @@ body {
         right: 0px;
         border-radius: 0px 0px 0px 12px;
         padding: 2px 0 0;
+        color: #fff;
     }
     .paginiation-wrapper{
         width: 100%;
@@ -1531,12 +1558,13 @@ body {
         border-radius: 50%;
         @include flexMixin(row,center,center);
         font-size: 15px;
-        background-color: rgba(153, 194, 255, 0.50);
+        background-color: $color-3-new;
         cursor: pointer;
-        color: #030330;
+        color: $color-1-new;
     }
     .pagination-number.active{
-        background-color: $color-5;
+        background-color: $color-1-new;
+        color: #fff;
     }
     .cart-col{
         width: 100%;
@@ -1555,7 +1583,7 @@ body {
         width: 100%;
         @include flexMixin(row,space-between,center);
         height: 82px;
-        background-color: #030330;
+        background-color: $color-3-new;
         padding: 20px 15px;
         border-radius: 15px;
     }
@@ -1581,7 +1609,6 @@ body {
     .total-price-wrapper{
         width: 100%;
         @include flexMixin(row,space-between,center);
-        color: $color-1;
         font-size: 20px;
     }
     .sale-input-wrapper{
@@ -1592,7 +1619,7 @@ body {
         margin: 40px 0;
     }
     .discount-input-span{
-        color: $color-1;
+        color: $color-1-new;
         input {
             -webkit-appearance: none;
             appearance: none;
@@ -1614,21 +1641,21 @@ body {
                 // }
             }
             &::-webkit-slider-runnable-track {
-                background-color: #313D83;
+                background-color: $color-4-new;
                 border-radius: 0.5rem;
                 height: 10px;
             }
             &::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 appearance: none;
-                background-color: #fff;
+                background-color: $color-1-new;
                 height: 18px;
                 width: 18px;
                 border-radius: 50%;
                 margin-top: -4px;
             }
             &::-moz-range-track {
-                background-color: #313D83;
+                background-color: $color-4-new;
                 border-radius: 0.5rem;
                 height: 10px;
             }
@@ -1660,7 +1687,6 @@ body {
         width: 100%;
         @include flexMixin(column,flex-start,center);
         gap: 10px;
-        color: $color-1;
         .input-label{
             font-size: 18px;
         }
@@ -1673,13 +1699,13 @@ body {
         width: 198px;
         height: 46px;
         padding: 0 16px;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
         border-radius: 12px;
         font-size: 15px;
         background-color: transparent;
-        color: $color-1;
+        color: $color-4-new;
         &::placeholder{
-            color: $color-1;
+            color: $color-4-new;
         }
     }
     .date-input{
@@ -1699,11 +1725,11 @@ body {
     .custom-date-box{
         @include flexMixin(row,space-between,center);
         width: 50px;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
         height: 46px;
         padding: 0 5px;
         border-radius: 12px;
-        color: $color-1;
+        color: $color-4-new;
         cursor: pointer;
         font-size: 12px;
         gap: 3px;
@@ -1718,7 +1744,7 @@ body {
         width: 100%;
         @include flexMixin(row, flex-start, center);
         padding: 10px 13px;
-        background-color: #303d83;
+        background-color: $color-3-new;
         border-radius: 12px;
         position: absolute;
         top: 50px;
@@ -1740,9 +1766,10 @@ body {
         @include flexMixin(row, center, center);
         cursor: pointer;
         transition: $transition;
-        border: 1px solid #303d83;
+        border: 1px solid $color-4-new;
         &:hover {
-            border: 1px solid $color-5;
+            border: 1px solid $color-1-new;
+            color: $color-1-new;
         }
     }
     .pos-need{
@@ -1752,8 +1779,8 @@ body {
         position: absolute;
         left: -5px;
         top: 35px;
-        background-color: $color-1;
-        color: $color-3;
+        background-color: $color-3-new;
+        color: $color-4-new;
         padding: 0 10px;
         @include flexMixin(row,center,center);
         border-radius: 20px;
@@ -1774,7 +1801,7 @@ body {
         width: 100%;
         height: 68px;
         padding: 0 21px 0 48px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 15px;
         *{
             flex: 1;
@@ -1804,7 +1831,7 @@ body {
         height: 68px;
         padding: 0 21px;
         border-radius: 15px;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
     }
     .final-payment-price-label-wrapper{
         @include flexMixin(row,flex-start,center);
@@ -1818,7 +1845,8 @@ body {
         border-radius: 12px;
         @include flexMixin(row,center,center);
         font-weight: bold;
-        background-color: $color-5;
+        background-color: $color-1-new;
+        color: #fff;
         font-size: 15px;
         cursor: pointer;
     }
@@ -1835,7 +1863,7 @@ body {
         width: 920px;
         @include flexMixin(row,flex-start,flex-start);
         padding: 20px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 12px;
         gap: 5px;
         *{
@@ -1923,14 +1951,14 @@ body {
     @include flexMixin(column,flex-start,center);
     max-width: 881px;
     border-radius: 20px;
-    background-color: $color-3;
+    background-color: #fff;
     padding: 35px;
     gap: 21px;
     .section-header{
         width: 100%;
         @include flexMixin(row,space-between,center);
         padding: 0 0 21px;
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
     }
     .page-title{
         font-size: 21px;
@@ -1946,20 +1974,19 @@ body {
         height: 140px;
         @include flexMixin(column,center,center);
         gap: 25px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 15px;
     }
     .seller-name{
         font-size: 21px;
-        color: #fff;
     }
     .pick-date{
         font-size: 18px;
         width: 184px;
         flex: 0 0 34px;
-        border: 1px solid $color-5;
-        color: $color-5;
-        background-color: transparent;
+        border: 1px solid $color-1-new;
+        color: #fff;
+        background-color: $color-1-new;
         border-radius: 11px;
         cursor: pointer;
     }
@@ -1975,7 +2002,7 @@ body {
     .pick-seller-date-wrapper{
         width: 100%;
         max-width: 807px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 20px;
         padding: 40px 50px;
         @include flexMixin(column,flex-start,flex-start);
@@ -1985,7 +2012,7 @@ body {
         width: 100%;
         @include flexMixin(row,space-between,center);
         padding: 0 0 16px;
-        border-bottom: 1px solid $color-5;
+        border-bottom: 1px solid $color-4-new;
     }
     .close-pop-up{
         @include flexMixin(row,center,flex-start);
@@ -1996,14 +2023,13 @@ body {
     .seller-header-title{
         font-weight: bold;
         font-size: 25px;
-        color: $color-5;
     }
     .search-input-wrapper{
         @include flexMixin(row,flex-start,center);
         width: 165px;
         height: 30px;
         border-radius: 12px;
-        background-color: #313D83;
+        background-color: $color-1-new;
         padding: 0 10px;
         gap: 5px;
         input{
@@ -2028,7 +2054,7 @@ body {
         font-size: 20px;
         font-weight: bold;
         color: #fff;
-        background-color: $color-3;
+        background-color: $color-4-new;
         height: 47px;
         border-radius: 26px;
         padding: 3px 0 0;
@@ -2041,15 +2067,22 @@ body {
     width: 100%;
     max-width: 891px;
     @include flexMixin(column,flex-start,center);
-    background-color: $color-3;
+    background-color: #fff;
     border-radius: 20px;
     padding: 35px;
     gap: 30px;
+    position: relative;
+    .reload-btn-wrapper{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
     .section-header{
         padding: 0 0 17px;
         @include flexMixin(row,space-between,center);
         width: 100%;
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
+        position: relative;
     }
     .seller-name-date{
         font-size: 21px;
@@ -2063,8 +2096,8 @@ body {
     .filter-btn{
         flex: 0 0 90px;
         background-color: transparent;
-        color: $color-5;
-        border: 1px solid $color-5;
+        color: $color-1-new;
+        border: 1px solid $color-1-new;
         @include flexMixin(row,center,center);
         border-radius: 4px;
         height: 30px;
@@ -2072,8 +2105,8 @@ body {
         transition: $transition;
     }
     .filter-btn.active{
-        background-color: $color-5;
-        color: $color-3;
+        background-color: $color-1-new;
+        color: #fff;
     }
     .table-part{
         width: 100%;
@@ -2084,7 +2117,7 @@ body {
         width: 100%;
         @include flexMixin(row,flex-start,flex-start);
         gap: 10px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 15px;
         padding: 15px 20px;
         font-size: 15px;
@@ -2123,7 +2156,7 @@ body {
     }
     .final-reports{
         border-radius: 20px;
-        border: 1px solid $color-5;
+        border: 1px solid $color-4-new;
         padding: 20px 32px;
         width: 100%;
         @include flexMixin(column,flex-start,center);
@@ -2154,26 +2187,26 @@ body {
         text-align: center;
         padding: 3px 10px;
         border-radius: 5px;
-        background-color: $color-5;
-        color: #000;
+        background-color: $color-1-new;
+        color: #fff;
         width: 100%;
         font-weight: bold;
     }
     .show-pords.close{
-        color: $color-5;
+        color: $color-1-new;
         background-color: transparent;
     }
     .show-pords{
         text-align: center;
         padding: 3px 10px;
         border-radius: 5px;
-        background-color: $color-5;
-        color: #000;
+        background-color: $color-1-new;
+        color: #fff;
         width: 70%;
         font-weight: bold;
         cursor: pointer;
         transition: $transition;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
     }
     .data-label{
         position: absolute;
@@ -2186,17 +2219,17 @@ body {
         @include flexMixin(row, center, center);
         background-color: $red-color;
         color : #fff;
+        font-size: 12px;
     }
     .sale-label{
         top: unset;
         right: unset;
         bottom: calc(50% - 10px);
         left: -25px;
-        font-size: 12px;
     }
     .data-label.passed{
-        background-color: $color-5;
-        color: $color-3;
+        background-color: $color-1-new;
+        color: #fff;
     }
     .call-texts{
         width: 100%;
@@ -2207,8 +2240,8 @@ body {
         .call-text{
             padding: 0 5px;
             font-size: 15px;
-            background-color: $color-5;
-            color: $color-3;
+            background-color: $color-4-new;
+            color: #fff;
             font-weight: bold;
             border-radius: 5px;
         }
@@ -2220,7 +2253,7 @@ body {
 .add-new-number-page{
     width: 100%;
     max-width: 881px;
-    background-color: $color-3;
+    background-color: #fff;
     border-radius: 20px;
     @include flexMixin(column,flex-start,center);
     gap: 20px;
@@ -2229,7 +2262,7 @@ body {
         width: 100%;
         @include flexMixin(row,space-between,center);
         padding: 0 0 10px;
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
     }
     .page-title{
         font-size: 21px;
@@ -2252,9 +2285,9 @@ body {
             flex: 0 0 200px;
             height: 40px;
             border-radius: 5px;
-            background-color: #030330;
+            background-color: $color-3-new;
             padding: 0 10px;
-            color: #fff;
+            color: $color-4-new;
         }
     }
     .error-label{
@@ -2269,17 +2302,17 @@ body {
     .submit-number{
         cursor: pointer;
         transition: $transition;
-        background-color: $color-5;
-        color: $color-3;
+        background-color: $color-1-new;
+        color: #fff;
         width: 100px;
         border-radius: 5px;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
         font-weight: bold;
         height: 40px;
         font-weight: bold;
         font-size: 17px;
         &:hover{
-            color: $color-5;
+            color: $color-1-new;
             background-color: transparent;
         }
     }
@@ -2290,7 +2323,7 @@ body {
 .my-sales-page{
     width: 100%;
     max-width: 881px;
-    background-color: $color-3;
+    background-color: #fff;
     border-radius: 20px;
     @include flexMixin(column, flex-start, center);
     gap: 20px;
@@ -2299,7 +2332,7 @@ body {
         width: 100%;
         @include flexMixin(row, space-between, center);
         padding: 0 0 10px;
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
     }
     .page-title {
         font-size: 21px;
@@ -2317,7 +2350,7 @@ body {
         height: 50px;
         font-size: 17px;
         color: #fff;
-        background-color: #030330;
+        background-color: $color-4-new;
         border-radius: 20px;
         font-weight: bold;
     }
@@ -2327,7 +2360,7 @@ body {
 .my-sale-month-page{
     width: 100%;
     max-width: 881px;
-    background-color: $color-3;
+    background-color: #fff;
     border-radius: 20px;
     @include flexMixin(column, flex-start, center);
     gap: 40px;
@@ -2336,7 +2369,7 @@ body {
         width: 100%;
         @include flexMixin(row, space-between, center);
         padding: 0 0 10px;
-        border-bottom: 2px solid $color-5;
+        border-bottom: 2px solid $color-4-new;
     }
     .page-title {
         font-size: 21px;
@@ -2358,14 +2391,14 @@ body {
     }
     .month-info-value{
         width: 200px;
-        background-color: #030330;
+        background-color: $color-3-new;
         height: 40px;
         @include flexMixin(row,center,center);
         border-radius: 20px;
         font-size: 16px;
     }
     .border-need{
-        border-bottom: 1px solid $color-5;
+        border-bottom: 1px solid $color-4-new;
         padding: 0 0 20px;
     }
     .month-payments-table{
@@ -2378,7 +2411,7 @@ body {
         @include flexMixin(row,flex-start,flex-start);
         font-size: 15px;
         padding: 20px 10px;
-        background-color: #030330;
+        background-color: $color-3-new;
         border-radius: 20px;
         gap: 10px;
         position: relative;
@@ -2393,6 +2426,7 @@ body {
         height: 50px;
         padding: 0 10px;
         background-color: transparent;
+        align-items: center;
     }
     .payment-table-item{
         @include flexMixin(column,flex-start,center);
@@ -2421,21 +2455,21 @@ body {
     .show-prod-btn{
         width: 130px;
         font-weight: bold;
-        background-color: $color-5;
-        color: $color-3;
+        background-color: $color-1-new;
+        color: #fff;
         flex: 0 0 30px;
         border-radius: 5px;
         @include flexMixin(row,center,center);
         cursor: pointer;
         transition: $transition;
-        border: 1px solid $color-5;
+        border: 1px solid $color-1-new;
         &:hover{
-            color: $color-5;
-            background-color: transparent;
+            color: $color-1-new;
+            background-color: $color-3-new;
         }
     }
     .show-prod-btn.shown{
-        color: $color-5;
+        color: $color-1-new;
         background-color: transparent;
     }
     .prod-item{
@@ -2444,9 +2478,9 @@ body {
         width: 100%;
         padding: 5px 10px;
         border-radius: 5px;
-        border: 1px solid $color-5;
-        background-color: $color-5;
-        color: $color-3;
+        border: 1px solid $color-1-new;
+        background-color: $color-1-new;
+        color: #fff;
         font-weight: bold;
         text-align: center;
     }

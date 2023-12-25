@@ -4,9 +4,14 @@ import LittleLoading from "../reuseables/little-loading";
 import { DataContext } from "../data/datacontext";
 import Seller from "./seller/seller";
 import PickDate from "./pick-date/pick-date";
+import ReloadBtn from "../reuseables/reload-btn";
 const SellersReport = () => {
-  const { sellers } = useContext(DataContext);
+  const { sellers, get_sellers, set_sellers } = useContext(DataContext);
   const [picked_seller, set_picked_seller] = useState(false);
+  const handle_reload = () => {
+    set_sellers(false);
+    get_sellers();
+  };
   return (
     <>
       <Helmet>
@@ -15,6 +20,7 @@ const SellersReport = () => {
       <div className="sellers-report-page">
         <div className="section-header">
           <h1 className="page-title">فروشندگان</h1>
+          <ReloadBtn click={handle_reload} />
         </div>
         <div className="sellers-wrapper">
           {sellers ? (

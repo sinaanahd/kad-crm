@@ -3,9 +3,14 @@ import LittleLoading from "../../reuseables/little-loading";
 import { DataContext } from "../../data/datacontext";
 import axios from "axios";
 import urls from "../../../urls/url";
+import ReloadBtn from "../../reuseables/reload-btn";
 const CallResults = () => {
-  const { call_results, out_side_call_results_setter } =
-    useContext(DataContext);
+  const {
+    call_results,
+    out_side_call_results_setter,
+    get_call_results,
+    set_call_results,
+  } = useContext(DataContext);
   const input_ref = useRef(false);
   const [title, set_title] = useState(false);
   const [pause, set_pause] = useState(false);
@@ -43,10 +48,15 @@ const CallResults = () => {
       alert("اطلاعات وارد نشده است");
     }
   };
+  const handle_reload = () => {
+    set_call_results(false);
+    get_call_results();
+  };
   return (
     <section className="lead-packs-box box-style">
       <div className="box-header">
         <span className="box-title">تمامی پاسخ تماس ها</span>
+        <ReloadBtn click={handle_reload} />
       </div>
       <div className="make-new-call-result">
         <span className="input-label">ساخت یک پاسخ تماس جدید : </span>

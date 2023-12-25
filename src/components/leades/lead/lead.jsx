@@ -6,10 +6,10 @@ import LittleLoading from "../../reuseables/little-loading";
 import { useEffect } from "react";
 
 const Lead = ({ lead, pack, counter }) => {
-  const { formular, subjects, years, lead_soursces } = useContext(DataContext);
-  const percent = formular
-    ? formular.find((f) => f.id === pack.formula_id)
-    : false;
+  const { subjects, years, lead_soursces } = useContext(DataContext);
+  // const percent = formular
+  //   ? formular.find((f) => f.id === pack.formula_id)
+  //   : false;
   const subject =
     subjects && lead.major !== null
       ? subjects.find((s) => s.id === lead.major)
@@ -28,15 +28,23 @@ const Lead = ({ lead, pack, counter }) => {
         {convert_to_persian(counter + 1)}
       </span>
       <span className="number-item first-item">{lead.phone_number}</span>
+      <span className="number-item">
+        {lead ? (
+          lead.fullname ? (
+            lead.fullname
+          ) : (
+            "وارد نشده است"
+          )
+        ) : (
+          <LittleLoading />
+        )}
+      </span>
       <span className="number-item call-counts-col">
         {convert_to_persian(lead.calls_count)}
       </span>
       <span className="number-item">{year ? year.name : "وارد نشده"}</span>
       <span className="number-item">
         {subject ? subject.name : "وارد نشده"}
-      </span>
-      <span className="number-item">
-        {percent ? percent.title : <LittleLoading />}
       </span>
       <span className="number-item date-item">
         {lead_source ? lead_source.title : <LittleLoading />}

@@ -9,7 +9,9 @@ const StudentData = ({ lead, set_lead }) => {
   const [fullname, set_fullname] = useState(false);
   const [fullname_err, set_fullname_err] = useState(false);
   const [shahr, set_shahr] = useState(false);
+  const [description, set_description] = useState(false);
   const [shahr_err, set_shahr_err] = useState(false);
+  const [description_err, set_description_err] = useState(false);
   const [grade, set_grade] = useState(false);
   const [major, set_major] = useState(false);
   const [pause, setPause] = useState(false);
@@ -23,13 +25,14 @@ const StudentData = ({ lead, set_lead }) => {
       : false;
   // ! subject === 0
   const update_user_info = () => {
-    if (fullname || shahr || grade || major) {
+    if (fullname || shahr || grade || major || description) {
       setPause(true);
       const send_obj = {
         fullname: fullname ? fullname : lead.fullname,
         shahr: shahr ? shahr : lead.shahr,
         grade: grade ? grade.id : lead.garde,
         major: major ? major.id : lead.major,
+        description: description ? description : lead.description,
       };
       axios
         .patch(urls.single_lead + lead.id, send_obj)
@@ -83,6 +86,19 @@ const StudentData = ({ lead, set_lead }) => {
     } else {
       set_shahr(value);
       set_shahr_err(false);
+    }
+  };
+  const handle_description = (e) => {
+    const value = e.target.value;
+    if (value.length < 3) {
+      set_description(false);
+      set_description_err("نام وارد شده کوتاه است");
+    } else if (value.length > 49) {
+      set_description(false);
+      set_description_err("نام وارد شده بلند است");
+    } else {
+      set_description(value);
+      set_description_err(false);
     }
   };
   return (
@@ -244,6 +260,27 @@ const StudentData = ({ lead, set_lead }) => {
                 : "شماره را وارد کنید"
             }
           />
+        </span>
+      </span>
+      <span className="input-wrapper">
+        <span className="input-title">توضیحات</span>
+        <span className="input-box">
+          <textarea
+            onInput={handle_description}
+            type="text"
+            placeholder={
+              lead
+                ? lead.description
+                  ? lead.description
+                  : "توضیحات را اضافه کنید"
+                : "توضیحات را اضافه کنید"
+            }
+          />
+          {description_err ? (
+            <span className="err-place">{description_err}</span>
+          ) : (
+            <></>
+          )}
         </span>
       </span>
       <span className="input-wrapper">

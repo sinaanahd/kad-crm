@@ -9,6 +9,7 @@ import PaymentRow from "./payment-row/payment-row";
 import find_month from "../functions/find-month";
 import * as shamsi from "shamsi-date-converter";
 import axios from "axios";
+import ReloadBtn from "../reuseables/reload-btn";
 
 const My_sale_month = () => {
   const { user } = useContext(DataContext);
@@ -75,6 +76,9 @@ const My_sale_month = () => {
     set_payments(payments);
   };
   useEffect(() => {
+    get_month_report();
+  }, []);
+  const get_month_report = (e) => {
     axios
       .get(
         `${urls.staff_sales_report}${user.id}-${parseInt(
@@ -96,7 +100,15 @@ const My_sale_month = () => {
         console.log(e.message);
         alert("مشکلی پیش آمده");
       });
-  }, []);
+  };
+  const handle_report = (e) => {
+    set_payments(false);
+    set_total_confirmed_pay(false);
+    set_total_sale(false);
+    set_total_share(false);
+    set_total_unconfirmed_pay(false);
+    get_month_report();
+  };
   return (
     <>
       <Helmet>
@@ -109,6 +121,7 @@ const My_sale_month = () => {
           <h1 className="page-title">
             فروش های {month} {year}
           </h1>
+          <ReloadBtn click={handle_report} />
         </div>
         <div className="month-infos-wrapper">
           <div className="month-info-wrapper border-need">

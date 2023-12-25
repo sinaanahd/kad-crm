@@ -9,7 +9,6 @@ const Payment = ({ sale, payment, count, handleFileChange, file }) => {
           "fa-ir"
         )}
         <br />
-        {payment.payment_id}
       </span>
       <span className="payment-item">
         {split_in_three(convert_to_persian(payment.payment_amount))} تومان
