@@ -70,9 +70,9 @@ const SideBar = () => {
     },
     {
       id: 8,
-      authorized_levels: [],
-      text: "",
-      url: "",
+      authorized_levels: [100],
+      text: "گزارش فروش",
+      url: "sell-report",
       imgs: [my_courses_icon],
     },
   ];

@@ -49,6 +49,7 @@ const Lead = ({ lead, pack, counter }) => {
       <span className="number-item date-item">
         {lead_source ? lead_source.title : <LittleLoading />}
       </span>
+      <span className="number-item">{lead.last_call}</span>
       <span className="number-item last-item">
         <Link
           to={`lead/${lead.id}`}

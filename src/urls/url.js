@@ -20,6 +20,7 @@ const urls = {
     submit_user : `${base_site}register_user_prime`,
     staff_work_report : `${base_site}staff_work_report/`,
     set_single_lead_in_default_leadpack : `${base_site}set_single_lead_in_default_leadpack`,
-    staff_sales_report : `${base_site}staff_sales_report/`
+    staff_sales_report : `${base_site}staff_sales_report/`,
+    accounting_payments : `${base_site}accounting_payments`,
 }
 export default urls;

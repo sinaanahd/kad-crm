@@ -9,10 +9,13 @@
     "axios": "^1.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-flow": "^1.0.3",
+    "react-flow-renderer": "^10.3.17",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.11.0",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
+    "recharts": "^2.10.3",
     "sass": "^1.69.5",
     "shamsi-date-converter": "^1.0.5",
     "web-vitals": "^2.1.4"

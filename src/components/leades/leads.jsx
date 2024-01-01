@@ -35,9 +35,13 @@ const LeadsPage = () => {
       ? lead_packs.filter((lp) => seller_lead_pcaks.includes(lp.id))
       : false;
   useEffect(() => {
-    get_lead_packs();
+    // get_lead_packs();
   });
+
   useEffect(() => {
+    get_lead_pack();
+  }, [lead_pack]);
+  const get_lead_pack = () => {
     if (lead_pack) {
       localStorage.setItem("pack-data", JSON.stringify(lead_pack));
       set_leads(false);
@@ -47,6 +51,7 @@ const LeadsPage = () => {
           const { error, response, result } = res.data;
           if (result) {
             set_leads(response);
+            console.log(response);
             localStorage.setItem("leads-data", JSON.stringify(response));
           } else {
             alert("مشکلی پیش آمده");
@@ -55,8 +60,11 @@ const LeadsPage = () => {
         })
         .catch((e) => console.log(e.massage));
     }
-  }, [lead_pack]);
+  };
   useEffect(() => {
+    get_sellers_lead_pack();
+  }, [seller_lead_pcaks]);
+  const get_sellers_lead_pack = (e) => {
     if (!lead_pack && seller_lead_pcaks && lead_packs) {
       if (seller_lead_pcaks.length !== 0) {
         const inside_lead_pack = lead_packs.find((lp) =>
@@ -76,13 +84,13 @@ const LeadsPage = () => {
                 alert("مشکلی پیش آمده");
                 console.log(error);
               }
-              console.log(res.data);
+              // console.log(res.data);
             })
             .catch((e) => console.log(e.massage));
         }
       }
     }
-  }, [seller_lead_pcaks]);
+  };
   const find_call_counts = (count) => {
     let counted = 0;
     leads.forEach((l) => {
@@ -103,12 +111,16 @@ const LeadsPage = () => {
     }
   };
   const handle_seller_lead_packs_reload = () => {
-    get_lead_packs();
-    set_seller_lead_pcaks(false);
-    get_seller_lead_packs();
     set_lead_packs(false);
     set_lead_pack(false);
     set_leads(false);
+    set_seller_lead_pcaks(false);
+    get_lead_packs();
+    setTimeout(() => {
+      get_seller_lead_packs();
+    }, 1000);
+    // setTimeout(() => {
+    // }, 1000);
   };
   return (
     <>
@@ -232,6 +244,7 @@ const LeadsPage = () => {
               <span className="header-item number-item date-item">
                 منبع شماره
               </span>
+              <span className="header-item number-item">آخرین تماس</span>
               <span className="header-item number-item last-item"></span>
             </div>
             {leads ? (
