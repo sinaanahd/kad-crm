@@ -2540,6 +2540,19 @@ body {
     .diagram-wrapper{
         display: block;
         width: 100%;
+        direction: ltr;
+        .chart-container{
+            @include flexMixin(row,center,center);
+        }
+    }
+    .custom-tooltip{
+        width: 200px;
+        padding: 20px 0;
+        background-color: $color-3-new;
+        @include flexMixin(column,center,center);
+        font-weight: bold;
+        border-radius: 20px;
+        gap: 10px;
     }
 }
 /* all reports page */

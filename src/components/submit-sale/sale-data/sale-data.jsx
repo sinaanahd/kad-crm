@@ -378,7 +378,7 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
             <input
               type="range"
               step={5}
-              max={95}
+              max={100}
               min={0}
               onInput={handle_percent}
             />
@@ -388,7 +388,7 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
                 <font>%</font>{" "}
                 {convert_to_persian(percent) || convert_to_persian(0)}{" "}
               </span>
-              <span className="max-value">{convert_to_persian(95)}</span>
+              <span className="max-value">{convert_to_persian(100)}</span>
             </span>
           </span>
         </span>

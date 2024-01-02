@@ -380,7 +380,7 @@ const DataProvider = ({ children }) => {
     localStorage.setItem("formular", JSON.stringify(data));
   };
   const get_lead_packs = () => {
-    console.log("start");
+    // console.log("start");
     axios
       .get(`${urls.lead_packs}`)
       .then((res) => {
@@ -389,7 +389,7 @@ const DataProvider = ({ children }) => {
         if (result) {
           set_lead_packs(response);
           localStorage.setItem("lead_packs", JSON.stringify(response));
-          console.log("finish");
+          // console.log("finish");
         } else {
           console.log(error);
           alert("مشکلی در دریافت لیدپک ها پیش آمده");
@@ -422,7 +422,7 @@ const DataProvider = ({ children }) => {
       });
   };
   const get_seller_lead_packs = () => {
-    console.log("slp start");
+    // console.log("slp start");
     axios
       .get(`${urls.seller_lead_packs}${user.id}`)
       .then((res) => {
@@ -431,7 +431,7 @@ const DataProvider = ({ children }) => {
         if (result) {
           set_seller_lead_pcaks(response);
           // console.log(response);
-          console.log("slp start");
+          // console.log("slp start");
 
           localStorage.setItem("seller_lead_pcaks", JSON.stringify(response));
         } else {

@@ -10,10 +10,15 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
 import { DataContext } from "../../data/datacontext";
 import axios from "axios";
 import urls from "../../../urls/url";
+import convert_to_persian from "../../functions/convert-to-persian";
+import split_in_three from "../../functions/spilit_in_three";
 
 const studentData = [
   { date: "2023-08-29", students: 10 },
@@ -47,7 +52,7 @@ const Diagram = () => {
         .then((res) => {
           const { result, response, error } = res.data;
           if (result) {
-            console.log(response);
+            // console.log(response);
             localStorage.setItem("payments", JSON.stringify(response));
             set_payments(response);
           } else {
@@ -63,79 +68,93 @@ const Diagram = () => {
   useEffect(() => {
     get_data();
   }, []);
-  const make_data = () => {};
+  const make_data = () => {
+    // console.log(payments[0]);
+    // const payment = payments[0];
+    const datas = [];
+    const sellers = [];
+    payments.forEach((payment) => {
+      if (
+        !sellers.includes(payment.seller_name) &&
+        payment.seller_name !== "-" &&
+        payment.seller_name !== "سایت"
+      ) {
+        sellers.push(payment.seller_name);
+      }
+    });
+    sellers.forEach((s) => {
+      const seller_payments = payments.filter(
+        (p) => p.seller_name === s && p.is_payed
+      );
+      let sum = 0;
+      let selled_products = 0;
+      seller_payments.forEach((p) => {
+        sum += p.payment_amount;
+        selled_products += p.products_ids.length;
+      });
+      const data = {
+        name: s,
+        amount: sum / 1000,
+        product_counts: selled_products,
+        persian_amount: split_in_three(convert_to_persian(sum)),
+      };
+      datas.push(data);
+    });
+    return datas;
+  };
   const pay_datas = payments ? make_data() : false;
-  const data = [
-    { name: "Page A", uv: 400, pv: 2100, amt: 1000 },
-    { name: "Page B", uv: 100, pv: 2300, amt: 2000 },
-    { name: "Page C", uv: 500, pv: 2440, amt: 2200 },
-    { name: "Page D", uv: 250, pv: 250, amt: 200 },
-    { name: "Page E", uv: 300, pv: 2200, amt: 2100 },
-    { name: "Page E", uv: 300, pv: 2200, amt: 2100 },
-    { name: "Page E", uv: 300, pv: 2200, amt: 2100 },
-    { name: "Page E", uv: 300, pv: 2200, amt: 2100 },
-    { name: "Page E", uv: 300, pv: 2200, amt: 2100 },
-    { name: "Page E", uv: 300, pv: 2200, amt: 2100 },
-    { name: "Page E", uv: 300, pv: 2200, amt: 2100 },
-  ];
+  const colors = ["orange", "blue", "green", "red", "pink", "magenta"];
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="label">
+            {`${label} : ${payload[0].payload.persian_amount}`} تومان
+          </p>
+          <span className="sold-prods">
+            محصول فروخته شده :{" "}
+            {convert_to_persian(payload[0].payload.product_counts)}
+          </span>
+        </div>
+      );
+    }
+
+    return null;
+  };
   return (
     <div className="chart-container">
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart width={600} height={300} data={data}>
+      <ResponsiveContainer width="50%" height={400}>
+        <BarChart width={600} height={300} data={pay_datas}>
+          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis dataKey="name" />
-          <YAxis />
-          <Bar dataKey="pv" barSize={50} fill="#8884d8" />
-          {/* <Tooltip /> */}
-          {/* <Legend /> */}
+          <YAxis dataKey="amount" />
+          <Bar dataKey="amount" barSize={20} fill="#8884d8" />
+          <Tooltip content={CustomTooltip} fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
-
-      {/* <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={lastThreeDaysData}>
-          <XAxis dataKey="date" />
-          <YAxis />
-          <CartesianGrid stroke="#f5f5f5" />
-          <Line type="stepBefore" dataKey="students" stroke="#000" dot={true} />
+      <ResponsiveContainer width="50%" height={400}>
+        <PieChart>
+          <Pie
+            data={pay_datas}
+            dataKey="amount"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={50}
+            fill="#8884d8"
+          >
+            {pay_datas ? (
+              pay_datas.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={colors[index]} />
+              ))
+            ) : (
+              <></>
+            )}
+          </Pie>
           <Tooltip />
-          <Legend />
-        </LineChart>
+          <Legend verticalAlign="top" height={36} />
+        </PieChart>
       </ResponsiveContainer>
-
-      <LineChart width={400} height={400} data={data}>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-      </LineChart>
-
-      <LineChart width={600} height={300} data={data}>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="name" />
-        <YAxis />
-      </LineChart>
-
-      <LineChart
-        width={600}
-        height={300}
-        data={data}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="name" />
-        <YAxis />
-      </LineChart>
-
-      <LineChart
-        width={600}
-        height={300}
-        data={data}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-      </LineChart> */}
     </div>
   );
 };
