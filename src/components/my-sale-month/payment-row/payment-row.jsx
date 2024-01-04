@@ -76,7 +76,9 @@ const PaymentRow = ({ payment }) => {
         </span>
         <span className="payment-table-item share-col">
           {split_in_three(
-            convert_to_persian(payment.payment_amount * payment.pourcant)
+            convert_to_persian(
+              Math.ceil(payment.payment_amount * payment.pourcant)
+            )
           )}{" "}
           تومان
         </span>

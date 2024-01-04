@@ -36,7 +36,7 @@ const SingleSellerReport = () => {
           const sales = response.sales;
           set_calls(calls);
           set_sales(sales);
-          // console.log(res.data.response);
+          console.log(res.data.response);
           make_full_month(calls, sales);
         } else {
           console.log(error);
@@ -54,12 +54,18 @@ const SingleSellerReport = () => {
     ? sellers.find((s) => s.id === parseInt(page_slug.split("-")[0]))
     : false;
   const check_date = (entry1, entry2) => {
-    const time1 = entry1.split("T")[0].replaceAll("-", "/");
-    const ordered_entry2 = `${entry2.split("/")[2]}/${entry2.split("/")[0]}/${
-      entry2.split("/")[1]
-    }`;
+    const formated_entry_1 = entry1.split("T")[0].replaceAll("-", "/");
+    const ordered_entry1 = `${parseInt(
+      formated_entry_1.split("/")[0]
+    )}/${parseInt(formated_entry_1.split("/")[1])}/${parseInt(
+      formated_entry_1.split("/")[2]
+    )}`;
+    const ordered_entry2 = `${parseInt(entry2.split("/")[2])}/${parseInt(
+      entry2.split("/")[0]
+    )}/${parseInt(entry2.split("/")[1])}`;
     const time2 = ordered_entry2;
-    // console.log(time1, time2, time1 == time2);
+    const time1 = ordered_entry1;
+    console.log(time1, time2);
     return time1 === time2;
   };
   const make_full_month = (calls, sales) => {
