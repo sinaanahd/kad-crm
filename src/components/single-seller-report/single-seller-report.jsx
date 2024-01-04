@@ -126,10 +126,10 @@ const SingleSellerReport = () => {
         total_amount += p.payment_amount;
       });
     });
-    set_total_sale(total_amount);
-    set_total_calls(total_calls);
-    set_total_seller_share(seller_share);
-    set_confirmed_seller_share(seller_confirmed_share);
+    set_total_sale(Math.floor(total_amount));
+    set_total_calls(Math.floor(total_calls));
+    set_total_seller_share(Math.floor(seller_share));
+    set_confirmed_seller_share(Math.floor(seller_confirmed_share));
     set_all_dates(all_dates);
   };
   const no_call = all_dates
@@ -279,23 +279,27 @@ const SingleSellerReport = () => {
           <div className="total-month-sale-wrapper call-counts-reports">
             <h2 className="total-sale-title ">سهم فروشنده</h2>
             <span className="sale-amount-wrapper">
-              {total_seller_share || total_seller_share === 0 ? (
-                split_in_three(convert_to_persian(total_seller_share))
-              ) : (
-                <LittleLoading />
-              )}{" "}
-              تومان
+              <bdi>
+                {total_seller_share || total_seller_share === 0 ? (
+                  split_in_three(convert_to_persian(total_seller_share))
+                ) : (
+                  <LittleLoading />
+                )}{" "}
+                تومان
+              </bdi>
             </span>
           </div>
           <div className="total-month-sale-wrapper call-counts-reports">
             <h2 className="total-sale-title ">پورسانت تایید شده</h2>
             <span className="sale-amount-wrapper">
-              {confirmed_seller_share || confirmed_seller_share === 0 ? (
-                split_in_three(convert_to_persian(confirmed_seller_share))
-              ) : (
-                <LittleLoading />
-              )}{" "}
-              تومان
+              <bdi>
+                {confirmed_seller_share || confirmed_seller_share === 0 ? (
+                  split_in_three(convert_to_persian(confirmed_seller_share))
+                ) : (
+                  <LittleLoading />
+                )}{" "}
+                تومان
+              </bdi>
             </span>
           </div>
           <div className="total-month-sale-wrapper call-counts-reports">

@@ -69,10 +69,10 @@ const My_sale_month = () => {
       }
       total_sale += p.payment_amount;
     });
-    set_total_confirmed_pay(confirmed_pay);
-    set_total_unconfirmed_pay(unconfirmed_pay);
-    set_total_sale(total_sale);
-    set_total_share(total_share);
+    set_total_confirmed_pay(Math.ceil(confirmed_pay));
+    set_total_unconfirmed_pay(Math.ceil(unconfirmed_pay));
+    set_total_sale(Math.ceil(total_sale));
+    set_total_share(Math.ceil(total_share));
     set_payments(payments);
   };
   useEffect(() => {
