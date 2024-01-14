@@ -29,6 +29,8 @@ const call_results_data =
 const products_data = JSON.parse(localStorage.getItem("all-products")) || false;
 const all_users_data =
   JSON.parse(localStorage.getItem("users-summary")) || false;
+const payments_data = JSON.parse(localStorage.getItem("payments")) || false;
+
 const DataContext = createContext();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(user_data);
@@ -40,7 +42,6 @@ const DataProvider = ({ children }) => {
   const [courses, setCourses] = useState(course_data);
   const [cart, set_cart] = useState(cart_data);
   const [products, set_products] = useState(products_data);
-
   const subjects = [
     { id: 0, name: "ریاضی" },
     { id: 1, name: "تجربی" },
@@ -113,6 +114,7 @@ const DataProvider = ({ children }) => {
   ];
 
   const [senarios, set_senarios] = useState(senarios_data);
+  const [all_payments, set_all_payments] = useState(payments_data);
   const [lead_soursces, set_lead_soursces] = useState(lead_sources_data);
   const [formular, set_formular] = useState(formular_data);
   const [lead_packs, set_lead_packs] = useState(lead_packs_data);
@@ -122,53 +124,58 @@ const DataProvider = ({ children }) => {
   );
   const [call_results, set_call_results] = useState(call_results_data);
   const [all_users, set_all_users] = useState(all_users_data);
+  let count = 0;
   useEffect(() => {
-    const is_login_page = window.location.pathname === "/login";
-    const is_time = last_login_check(last_login, this_time_login);
+    if (count === 0) {
+      const is_login_page = window.location.pathname === "/login";
+      const is_time = last_login_check(last_login, this_time_login);
 
-    if (!user && !is_login_page) {
-      window.location.pathname = "/login";
-    } else {
-      get_seller_lead_packs();
-      if (is_time) {
-        get_senarios();
-        get_lead_sources();
-        get_formulars();
-        get_lead_packs();
-        get_sellers();
-        get_call_results();
-        get_products();
-        get_users_summary();
-        // get_seller_lead_packs();
+      if (!user && !is_login_page) {
+        window.location.pathname = "/login";
       } else {
-        if (!senarios_data) {
+        get_seller_lead_packs();
+        if (is_time) {
           get_senarios();
-        }
-        if (!lead_sources_data) {
           get_lead_sources();
-        }
-        if (!formular_data) {
           get_formulars();
-        }
-        if (!lead_packs) {
           get_lead_packs();
-        }
-        if (!sellers) {
           get_sellers();
-        }
-        if (!products) {
-          get_products();
-        }
-        if (!call_results_data) {
           get_call_results();
-        }
-        if (!all_users_data) {
+          get_products();
           get_users_summary();
+          get_all_payments();
+          // get_seller_lead_packs();
+        } else {
+          if (!senarios_data) {
+            get_senarios();
+          }
+          if (!lead_sources_data) {
+            get_lead_sources();
+          }
+          if (!formular_data) {
+            get_formulars();
+          }
+          if (!lead_packs) {
+            get_lead_packs();
+          }
+          if (!sellers) {
+            get_sellers();
+          }
+          if (!products) {
+            get_products();
+          }
+          if (!call_results_data) {
+            get_call_results();
+          }
+          if (!all_users_data) {
+            get_users_summary();
+          }
+          if (!all_payments) {
+            get_all_payments();
+          }
         }
-        // if (!seller_lead_pcaks_data) {
-        //   get_seller_lead_packs();
-        // }
       }
+      count++;
     }
   }, []);
   const get_teachers = () => {
@@ -504,6 +511,24 @@ const DataProvider = ({ children }) => {
   };
   /* main apis */
 
+  const get_all_payments = (e) => {
+    console.log("start");
+    axios
+      .get(urls.accounting_payments)
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          localStorage.setItem("payments", JSON.stringify(response));
+          set_all_payments(response);
+          console.log("finsish");
+        } else {
+          console.log(error);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
   return (
     <DataContext.Provider
       value={{
@@ -552,6 +577,9 @@ const DataProvider = ({ children }) => {
         products,
         get_seller_lead_packs,
         all_users,
+        all_payments,
+        set_all_payments,
+        get_all_payments,
       }}
     >
       {children}

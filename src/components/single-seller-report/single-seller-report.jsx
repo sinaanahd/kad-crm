@@ -65,7 +65,7 @@ const SingleSellerReport = () => {
     )}/${parseInt(entry2.split("/")[1])}`;
     const time2 = ordered_entry2;
     const time1 = ordered_entry1;
-    console.log(time1, time2);
+    // console.log(time1, time2);
     return time1 === time2;
   };
   const make_full_month = (calls, sales) => {
@@ -103,6 +103,10 @@ const SingleSellerReport = () => {
             p.paying_datetime &&
             check_date(p.paying_datetime, date.toLocaleDateString())
         );
+        const lost_payment = s.payments.map((p) =>
+          new Date(p.paying_datetime).toLocaleDateString("fa-ir")
+        );
+        // console.log(lost_payment);
         if (date_pays.length !== 0) {
           date_payments = date_payments.concat(date_pays);
           date_pays.forEach((dp) => {

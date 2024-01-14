@@ -5,6 +5,7 @@ import { DataContext } from "../data/datacontext";
 import find_month from "../functions/find-month";
 import convert_to_persian from "../functions/convert-to-persian";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import MySaleDiagram from "./my-sales-diagram/my-sale-diagram";
 
 const My_sales = () => {
   const { user } = useContext(DataContext);
@@ -44,9 +45,17 @@ const My_sales = () => {
       <Helmet>
         <title>فروش های من</title>
       </Helmet>
+      {/* <section className="my-sales-diagram-report my-sales-page">
+        <div className="section-header">
+          <h1 className="page-title">روند فروش من</h1>
+        </div>
+        <div className="diagram-wrapper">
+          <MySaleDiagram />
+        </div>
+      </section> */}
       <section className="my-sales-page mm-width">
         <div className="section-header">
-          <h1 className="page-title">فروش های من</h1>
+          <h1 className="page-title">گزارش فروش</h1>
         </div>
         <div className="seller-months">
           {make_dates()
@@ -62,6 +71,24 @@ const My_sales = () => {
             ))}
         </div>
       </section>
+      {/* <section className="my-sales-page mm-width">
+        <div className="section-header">
+          <h1 className="page-title">فروش های من</h1>
+        </div>
+        <div className="seller-months">
+          {make_dates()
+            .reverse()
+            .map((d, i) => (
+              <Link
+                to={`/my-full-sale/${user.id}-${d.month}-${d.year}`}
+                key={i++}
+                className="month-wrapper"
+              >
+                {find_month(d.month)} {convert_to_persian(d.year)}
+              </Link>
+            ))}
+        </div>
+      </section> */}
     </>
   );
 };

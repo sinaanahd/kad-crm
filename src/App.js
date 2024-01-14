@@ -17,6 +17,7 @@ import Add_new_number from "./components/add-new-number/add-new-number";
 import My_sales from "./components/my-sales/my-sales";
 import My_sale_month from "./components/my-sale-month/my-sale-month";
 import AllSalesReport from "./components/sell-report/all-sales-report";
+import SingleSellerSale from "./components/single-seller-sale/single-seller-sale";
 
 function App() {
   const { user } = useContext(DataContext);
@@ -42,6 +43,7 @@ function App() {
                <Route path="/add-data" exact component={AddNewDatas} />
                <Route path="/sell-report" exact component={AllSalesReport} />
                <Route path="/lead/:id" exact component={SingleLead} />
+               <Route path="/my-full-sale/:id" exact component={SingleSellerSale} />
                <Route path="/not-found" component={MakeLeadPackPage} />
                <Redirect to="/not-found" />
               

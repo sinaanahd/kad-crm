@@ -51,7 +51,7 @@ const LeadsPage = () => {
           const { error, response, result } = res.data;
           if (result) {
             set_leads(response);
-            console.log(response);
+            // console.log(response);
             localStorage.setItem("leads-data", JSON.stringify(response));
           } else {
             alert("مشکلی پیش آمده");
