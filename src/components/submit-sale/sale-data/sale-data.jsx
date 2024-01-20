@@ -12,7 +12,7 @@ import CartProduct from "./cart-products/cart-product";
 import { DataContext } from "../../data/datacontext";
 
 const SaleData = ({ selected_user, set_sale, set_products, products }) => {
-  const { user } = useContext(DataContext);
+  const { user, lead_soursces } = useContext(DataContext);
   const [cart, set_cart] = useState(false);
   const [percent, set_percent] = useState(0);
   const [open_select, set_open_select] = useState(false);
@@ -26,6 +26,7 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
   const [year, set_year] = useState(false);
   const [beyane_amount, set_beyane_amount] = useState(false);
   const [pause, set_pause] = useState(false);
+  const [sale_chanel, set_sale_chanel] = useState(false);
   const [disable_part, set_disable_part] = useState(false);
   useEffect(() => {
     // check_past_dates();
@@ -47,6 +48,10 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
         alert("مشکلی پیش آمده");
       });
   }, []);
+  const handle_sale_chanel = (entry) => {
+    set_sale_chanel(entry);
+    set_open_select(false);
+  };
   const handle_percent = (e) => {
     // console.log(e.target.value);
     const value = e.target.value;
@@ -153,10 +158,16 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
   const handle_data_check = () => {
     let send_obj = false;
     if (sale_kind) {
-      if (cart && (percent || percent === 0) && sale_conditions) {
+      if (
+        cart &&
+        (percent || percent === 0) &&
+        sale_conditions &&
+        sale_chanel
+      ) {
         if (sale_kind !== "beyane") {
           if (ghest_count !== 0 && sale_kind === "ghesti") {
             send_obj = {
+              source: sale_chanel,
               has_beyane: false,
               buyer_phone_number: selected_user.phone_number,
               staff_id: user.id,
@@ -170,6 +181,7 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
             alert_err();
           } else {
             send_obj = {
+              source: sale_chanel,
               has_beyane: false,
               buyer_phone_number: selected_user.phone_number,
               staff_id: user.id,
@@ -188,6 +200,7 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
               alert("ماه انتخابی حداکثر ۳۰ روز دارد");
             } else if (check_past_dates()) {
               send_obj = {
+                source: sale_chanel,
                 has_beyane: true,
                 buyer_phone_number: selected_user.phone_number,
                 staff_id: user.id,
@@ -393,6 +406,43 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
           </span>
         </span>
         <div className="custom-select-boxes-part">
+          <div className="input-wrapper">
+            <span className="input-label">کانال فروش</span>
+            <span className="input-span">
+              <span
+                className="custom-select-box"
+                onClick={() => {
+                  handle_open_select("sale_chanel");
+                }}
+              >
+                <span className="custom-select-box-text">
+                  {sale_chanel ? sale_chanel : "انتخاب کنید"}
+                </span>
+                <img src={arrow} alt="بازکردن" />
+              </span>
+              {open_select === "sale_chanel" ? (
+                <span className="select-box-options">
+                  {lead_soursces ? (
+                    lead_soursces.map((ls) => (
+                      <span
+                        key={ls.id}
+                        className="select-option"
+                        onClick={() => {
+                          handle_sale_chanel(ls.title);
+                        }}
+                      >
+                        {ls.title}
+                      </span>
+                    ))
+                  ) : (
+                    <LittleLoading />
+                  )}
+                </span>
+              ) : (
+                <></>
+              )}
+            </span>
+          </div>
           <div className="input-wrapper">
             <span className="input-label">شرایط فروش</span>
             <span className="input-span">

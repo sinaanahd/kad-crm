@@ -2579,11 +2579,20 @@ body {
     border-radius: 20px;
     gap: 40px;
     padding: 35px;
+    position: relative;
     .section-header{
         width: 100%;
         @include flexMixin(row,space-between,center);
         padding: 0 0 10px;
         border-bottom: 2px solid $color-4-new;
+        .reload-btn-wrapper{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        input{
+            width: 200px;
+        }
     }
     .page-title{
         font-size: 21px;
@@ -2677,6 +2686,10 @@ body {
             background-color: $color-3-new;
         }
     }
+    .show-prod-btn.shown {
+        color: $color-1-new;
+        background-color: transparent;
+    }
     .manager-label {
         position: absolute;
         width: 60px;
@@ -2690,6 +2703,96 @@ body {
         font-weight: bold;
         padding: 2px 0 0;
         @include flexMixin(row, center, center);
+    }
+    .prod-item {
+        font-size: 13px;
+        @include flexMixin(row, center, center);
+        width: 100%;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid $color-1-new;
+        background-color: $color-1-new;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+    }
+    .all-sale-payments-wrapper{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        *{
+            flex: 1;
+        }
+        background-color: $color-2-new;
+        padding: 10px;
+        border-radius: 12px;
+    }
+    .sale-payment-item{
+        @include flexMixin(column,flex-start,center);
+        gap: 20px;
+        margin: 10px 0;
+    }
+    .sale-payment-item-title{
+        font-weight: bold;
+        font-size: 14px;
+    }
+    .show-payment-img{
+        @include flexMixin(row,center,center);
+        border-radius: 12px;
+        background-color: $color-4-new;
+        color: #fff;
+        width: 100px;
+        flex: 0 0 30px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: $transition;
+        border: 2px solid $color-4-new;
+        &:hover{
+            background-color: transparent;
+            color: $color-4-new;
+        }
+    }
+    .payment-imgs-wrapper{
+        width: 100%;
+        @include flexMixin(row,flex-start,flex-start);
+        padding: 20px;
+        gap: 20px;
+    }
+    .old-img-wrapper{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 20px;
+        img{
+            max-height: 300px;
+            cursor: pointer;
+        }
+    }
+    .old-image-title{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .choose-file-btn{
+        width: 100px;
+        height: 30px;
+        border-radius: 12px;
+        background-color: $color-2-new;
+        border: 2px solid $color-4-new;
+        @include flexMixin(row,center,center);
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #upload-payment-img{
+        display: none;
+    }
+    .send-img-btn{
+        width: 100px;
+        height: 30px;
+        border-radius: 12px;
+        background-color: $color-4-new;
+        border: 2px solid $color-4-new;
+        @include flexMixin(row, center, center);
+        font-weight: bold;
+        cursor: pointer;
+        color: #fff;
     }
 }
 /* single seller sale report */

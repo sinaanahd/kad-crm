@@ -9,33 +9,26 @@ import find_month from "../functions/find-month";
 import * as shamsi from "shamsi-date-converter";
 import axios from "axios";
 import ReloadBtn from "../reuseables/reload-btn";
+import Sale from "./sale/sale";
 const SingleSellerSale = () => {
   const { user, all_users } = useContext(DataContext);
   const page_slug = window.location.pathname.split("/")[2];
   const [sales, set_sales] = useState(false);
-  const handle_time_period = (entry_date) => {
-    const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-    const month = parseInt(p2e(page_slug.split("-")[1]));
-    const year = parseInt(page_slug.split("-")[2]);
-    const start_date = new Date(
-      shamsi.jalaliToGregorian(year, month, 1).join("/")
-    ).getTime();
-    const final_date = new Date(
-      shamsi.jalaliToGregorian(year, month, month <= 6 ? 31 : 30).join("/")
-    ).getTime();
-    const result = start_date <= entry_date && final_date >= entry_date;
-    return result;
-  };
+  const [searched_sales, set_searched_sales] = useState(false);
   const year = convert_to_persian(parseInt(page_slug.split("-")[2]));
   const month = find_month(parseInt(page_slug.split("-")[1]));
 
   useEffect(() => {
     get_month_report();
   }, []);
+  const handle_relaod = () => {
+    set_sales(false);
+    get_month_report();
+  };
   const get_month_report = (e) => {
     axios
       .get(
-        `${urls.staff_sales_report}${user.id}-${parseInt(
+        `${urls.staff_sales_report_single_month}${user.id}-${parseInt(
           page_slug.split("-")[1]
         )}-${parseInt(page_slug.split("-")[2])}`
       )
@@ -56,6 +49,17 @@ const SingleSellerSale = () => {
         alert("مشکلی پیش آمده");
       });
   };
+  const handle_search = (e) => {
+    const value = e.target.value;
+    if (value.length > 3 && sales) {
+      const searched = sales.filter((s) =>
+        s.buyer_phone_number.startsWith(value)
+      );
+      set_searched_sales(searched);
+    } else {
+      set_searched_sales(false);
+    }
+  };
   return (
     <>
       <title>
@@ -66,7 +70,12 @@ const SingleSellerSale = () => {
           <h1 className="page-title">
             فروش های {month} {year}
           </h1>
-          <ReloadBtn />
+          <input
+            type="number"
+            placeholder="جستجوی شماره"
+            onInput={handle_search}
+          />
+          <ReloadBtn click={handle_relaod} />
         </section>
         <div className="all-sales-table-wrapper">
           <div className="payment-table-row payment-table-header-row">
@@ -90,49 +99,29 @@ const SingleSellerSale = () => {
             </span>
           </div>
           {sales ? (
-            sales.map((s) => (
-              <div className="payment-table-row" key={s.sale_id}>
-                <span className="payment-table-item date-col">
-                  {new Date(s.creation_datetime).toLocaleDateString("fa-ir")}
-                </span>
-                <span className="payment-table-item  prod-count-col samll-font">
-                  {all_users ? (
-                    all_users.find(
-                      (u) => u.phone_number === s.buyer_phone_number
-                    ).fullname
-                  ) : (
-                    <LittleLoading />
-                  )}
-                </span>
-                <span className="payment-table-item phone-number-col samll-font">
-                  {s.buyer_phone_number}
-                </span>
-                <span className="payment-table-item price-col">
-                  {split_in_three(convert_to_persian(1000000))} تومان
-                </span>
-                <span className="payment-table-item">
-                  <button
-                    onClick={() => {
-                      //   set_show_prods(!show_prods);
-                    }}
-                    className={false ? "show-prod-btn shown" : "show-prod-btn"}
-                  >
-                    {!false ? "نمایش محصولات" : "بستن"}
-                  </button>
-                </span>
-
-                <span className="payment-table-item share-col">
-                  <button
-                    onClick={() => {
-                      //   set_show_prods(!show_prods);
-                    }}
-                    className={false ? "show-prod-btn shown" : "show-prod-btn"}
-                  >
-                    {!false ? "مشاهده پرداختی ها" : "بستن پرداختی ها"}
-                  </button>
-                </span>
-              </div>
-            ))
+            searched_sales ? (
+              searched_sales.length !== 0 ? (
+                searched_sales.map((s) => (
+                  <Sale
+                    s={s}
+                    key={s.sale_id}
+                    sales={sales}
+                    set_sales={set_sales}
+                  />
+                ))
+              ) : (
+                "موردی برای نمایش وجود ندارد"
+              )
+            ) : (
+              sales.map((s) => (
+                <Sale
+                  s={s}
+                  key={s.sale_id}
+                  sales={sales}
+                  set_sales={set_sales}
+                />
+              ))
+            )
           ) : (
             <LittleLoading />
           )}

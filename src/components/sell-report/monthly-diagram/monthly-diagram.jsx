@@ -21,7 +21,9 @@ const MonthlyDiagram = () => {
       amount: 0,
     };
     const reports = [null_obj];
-    const payed = all_payments.filter((p) => p.is_payed && p.paying_datetime);
+    const payed = all_payments.filter(
+      (p) => p.is_payed && p.paying_datetime && p.manager_confirmation
+    );
     payed.forEach((p) => {
       const pay_date = new Date(p.paying_datetime).toLocaleDateString("fa-ir");
       const month_num = parseInt(p2e(pay_date.split("/")[1]));

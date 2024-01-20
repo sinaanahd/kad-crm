@@ -29,7 +29,7 @@ const Diagram = () => {
     });
     sellers.forEach((s) => {
       const seller_payments = all_payments.filter(
-        (p) => p.seller_name === s && p.is_payed
+        (p) => p.seller_name === s && p.is_payed && p.manager_confirmation
       );
       let sum = 0;
       let selled_products = 0;

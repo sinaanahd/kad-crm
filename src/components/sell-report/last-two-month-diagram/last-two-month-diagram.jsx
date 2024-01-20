@@ -17,7 +17,7 @@ const LastTwoMonthDiagrams = () => {
   useEffect(() => {
     const data_1 = detect_time_period("now");
     const data_2 = detect_time_period("last");
-    console.log(data_1, data_2);
+    // console.log(data_1, data_2);
   }, []);
   const { all_payments } = useContext(DataContext);
   const make_data = (base_start, base_end) => {
@@ -33,7 +33,10 @@ const LastTwoMonthDiagrams = () => {
     });
     sellers.forEach((s) => {
       const seller_payments = all_payments.filter((p) =>
-        p.seller_name === s && p.is_payed && p.paying_datetime
+        p.seller_name === s &&
+        p.is_payed &&
+        p.paying_datetime &&
+        p.manager_confirmation
           ? check_period(base_start, base_end, p.paying_datetime)
           : false
       );

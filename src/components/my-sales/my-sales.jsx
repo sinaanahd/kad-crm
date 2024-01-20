@@ -71,7 +71,7 @@ const My_sales = () => {
             ))}
         </div>
       </section>
-      {/* <section className="my-sales-page mm-width">
+      <section className="my-sales-page mm-width">
         <div className="section-header">
           <h1 className="page-title">فروش های من</h1>
         </div>
@@ -88,7 +88,7 @@ const My_sales = () => {
               </Link>
             ))}
         </div>
-      </section> */}
+      </section>
     </>
   );
 };
