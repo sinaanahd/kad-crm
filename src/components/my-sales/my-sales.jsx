@@ -45,14 +45,14 @@ const My_sales = () => {
       <Helmet>
         <title>فروش های من</title>
       </Helmet>
-      {/* <section className="my-sales-diagram-report my-sales-page">
+      <section className="my-sales-diagram-report my-sales-page">
         <div className="section-header">
           <h1 className="page-title">روند فروش من</h1>
         </div>
         <div className="diagram-wrapper">
           <MySaleDiagram />
         </div>
-      </section> */}
+      </section>
       <section className="my-sales-page mm-width">
         <div className="section-header">
           <h1 className="page-title">گزارش فروش</h1>
