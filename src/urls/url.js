@@ -23,5 +23,6 @@ const urls = {
     staff_sales_report : `${base_site}staff_sales_report/`,
     staff_sales_report_single_month : `${base_site}staff_sales_report_single_month/`,
     accounting_payments : `${base_site}accounting_payments`,
+    zolfi_sale : `${base_site}zolfi_sale`,
 }
 export default urls;

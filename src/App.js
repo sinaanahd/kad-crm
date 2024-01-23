@@ -18,6 +18,7 @@ import My_sales from "./components/my-sales/my-sales";
 import My_sale_month from "./components/my-sale-month/my-sale-month";
 import AllSalesReport from "./components/sell-report/all-sales-report";
 import SingleSellerSale from "./components/single-seller-sale/single-seller-sale";
+import ZolfiSale from "./components/submit-sale/zolfi/zolfi-sale";
 
 function App() {
   const { user } = useContext(DataContext);
@@ -38,6 +39,7 @@ function App() {
                <Route path="/sale-report/:id" exact component={My_sale_month} />
                <Route path="/add-phone-number" exact component={Add_new_number} />
                <Route path="/submit-sale" exact component={SubmitSale} />
+               <Route path="/zolfi-sale" exact component={ZolfiSale} />
                <Route path="/sellers-report" exact component={SellersReport} />
                <Route path="/seller/:id" exact component={SingleSellerReport} />
                <Route path="/add-data" exact component={AddNewDatas} />

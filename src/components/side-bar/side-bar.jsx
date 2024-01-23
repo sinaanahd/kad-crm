@@ -83,9 +83,8 @@ const SideBar = () => {
   }, []);
   useEffect(() => {
     if (user) {
-      const menu_items = all_pages.filter(
-        (p) => p.authorized_levels.includes(user.level)
-        // true
+      const menu_items = all_pages.filter((p) =>
+        p.authorized_levels.includes(user.level)
       );
       set_menu_items(menu_items);
     }
@@ -93,12 +92,109 @@ const SideBar = () => {
   const check_page = () => {
     set_page_decider(window.location.pathname.split("/")[1]);
   };
+  const zolfi_menu_items = user
+    ? user.id === 10
+      ? [
+          {
+            id: 7,
+            authorized_levels: [40],
+            text: "فروش های من",
+            url: "my-sales",
+            imgs: [my_courses_icon],
+          },
+          {
+            id: 4,
+            authorized_levels: [40],
+            text: "ثبت فروش",
+            url: "zolfi-sale",
+            imgs: [my_courses_icon],
+          },
+        ]
+      : []
+    : [];
   return (
     <>
       <aside
         className={open_close ? "side-bar-wrapper open" : "side-bar-wrapper"}
       >
-        <ul className="side-bar-items">
+        {user ? (
+          user.id === 10 ? (
+            <ul className="side-bar-items">
+              {zolfi_menu_items ? (
+                zolfi_menu_items.map((mi) => (
+                  <li
+                    key={mi.id}
+                    onClick={() => {
+                      set_open_close(false);
+                      check_page();
+                    }}
+                    className={
+                      page_decider === mi.url
+                        ? "side-bar-item active"
+                        : "side-bar-item"
+                    }
+                  >
+                    <Link to={`/${mi.url}`} className="link-side-bar">
+                      <img
+                        width={24}
+                        height={24}
+                        src={
+                          page_decider === "make-lead-pack"
+                            ? mi.imgs[0]
+                            : mi.imgs[0]
+                        }
+                        alt={mi.text}
+                        className="side-bar-img"
+                      />
+                      <span className="side-text">{mi.text}</span>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <></>
+              )}
+            </ul>
+          ) : (
+            <ul className="side-bar-items">
+              {menu_items ? (
+                menu_items.map((mi) => (
+                  <li
+                    key={mi.id}
+                    onClick={() => {
+                      set_open_close(false);
+                      check_page();
+                    }}
+                    className={
+                      page_decider === mi.url
+                        ? "side-bar-item active"
+                        : "side-bar-item"
+                    }
+                  >
+                    <Link to={`/${mi.url}`} className="link-side-bar">
+                      <img
+                        width={24}
+                        height={24}
+                        src={
+                          page_decider === "make-lead-pack"
+                            ? mi.imgs[0]
+                            : mi.imgs[0]
+                        }
+                        alt={mi.text}
+                        className="side-bar-img"
+                      />
+                      <span className="side-text">{mi.text}</span>
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <></>
+              )}
+            </ul>
+          )
+        ) : (
+          <></>
+        )}
+        {/* <ul className="side-bar-items">
           {menu_items ? (
             menu_items.map((mi) => (
               <li
@@ -132,7 +228,7 @@ const SideBar = () => {
           ) : (
             <></>
           )}
-        </ul>
+        </ul> */}
       </aside>
     </>
   );
