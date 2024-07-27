@@ -4,6 +4,11 @@ import convert_to_persian from "../../../functions/convert-to-persian";
 const Product = ({ p, handle_cart, cart, check_user_kelas }) => {
   return (
     <div className="product-item">
+      {p.isFor1404 ? (
+        <span className="class-for-1404 font-bold">۱۴۰۴</span>
+      ) : (
+        <></>
+      )}
       <span className="product-name">{p.product_title}</span>
       <span className="prices-wrapper">
         <span className="price-label">قیمت : </span>

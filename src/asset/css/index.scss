@@ -1482,6 +1482,17 @@ body {
         gap: 15px;
         overflow: hidden;
         height: 194px;
+        .class-for-1404 {
+            position: absolute;
+            width: 100px;
+            background-color: #FFAF18;
+            color: #fff;
+            height: 20px;
+            @include flexMixin(row, center, center);
+            transform: rotate(-45deg);
+            top: 15px;
+            left: -30px;
+        }
     }
     .product-name{
         font-size: 17px;
