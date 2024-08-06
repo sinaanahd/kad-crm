@@ -13,6 +13,9 @@ const products_local =
   JSON.parse(localStorage.getItem("all-products")) || false;
 const SubmitSale = () => {
   const [selected_user, set_selected_user] = useState(false);
+  // const [selected_user, set_selected_user] = useState(
+  //   JSON.parse(localStorage.getItem("users-summary"))[0]
+  // );
   const [make_user, set_make_user] = useState(false);
   const [sale, set_sale] = useState(false);
   const [is_final, set_is_final] = useState(false);

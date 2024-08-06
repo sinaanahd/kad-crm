@@ -54,7 +54,6 @@ const UserChoose = ({ set_selected_user, set_make_user }) => {
   const handle_user_select = (user) => {
     set_selected_user(user);
     set_disable_part(true);
-    console.log(user);
   };
   return (
     <section

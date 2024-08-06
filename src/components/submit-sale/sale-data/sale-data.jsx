@@ -28,6 +28,8 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
   const [pause, set_pause] = useState(false);
   const [sale_chanel, set_sale_chanel] = useState(false);
   const [disable_part, set_disable_part] = useState(false);
+  const [new_kind, set_new_kind] = useState("c"); // c : cash , 2g , 3g , 4g
+  const [new_sale_data, set_new_sale_data] = useState([]);
   useEffect(() => {
     // check_past_dates();
     axios
@@ -100,6 +102,13 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
         (i) => p.product_id === i.product_id
       );
       sample_cart.products.splice(index, 1);
+
+      const ref_sale_data = [...new_sale_data];
+      const sale_index = ref_sale_data.findIndex(
+        (sd) => sd.pay_data_id === p.product_id
+      );
+      ref_sale_data.splice(sale_index, 1);
+      set_new_sale_data(ref_sale_data);
     }
     sample_cart.products_ids = sample_cart.products.map((p) => p.product_id);
     let sum = 0;
@@ -112,6 +121,15 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
     } else {
       set_cart(false);
     }
+  };
+  const calculate_final_price = () => {
+    let sum = 0;
+    new_sale_data.forEach((sd) =>
+      sd.item_payments.forEach((ip) => {
+        sum += ip.amount;
+      })
+    );
+    return sum;
   };
   const check_user_kelas = (id) => {
     return selected_user.kelases.includes(id);
@@ -155,70 +173,105 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
       set_beyane_amount(false);
     }
   };
+  const make_pay_amounts = () => {
+    const ids = [...cart.products_ids];
+    const sale_datas = [...new_sale_data];
+    const pay_amounts = [];
+    ids.forEach((id) => {
+      const p = sale_datas.find((sd) => sd.pay_data_id === id);
+      if (p) {
+        const payments = p.item_payments;
+        console.log(payments);
+        payments.forEach((payment) => {
+          if (pay_amounts.length < payments.length) {
+            pay_amounts.push([payment.amount]);
+          } else {
+            const index = payments.findIndex((pay) => pay === payment);
+            pay_amounts[index].push(payment.amount);
+          }
+        });
+      }
+    });
+    return pay_amounts;
+  };
   const handle_data_check = () => {
     let send_obj = false;
-    if (sale_kind) {
-      if (
-        cart &&
-        (percent || percent === 0) &&
-        sale_conditions &&
-        sale_chanel
-      ) {
-        if (sale_kind !== "beyane") {
-          if (ghest_count !== 0 && sale_kind === "ghesti") {
-            send_obj = {
-              source: sale_chanel,
-              has_beyane: false,
-              buyer_phone_number: selected_user.phone_number,
-              staff_id: user.id,
-              discount_percent: percent ? parseInt(percent) : null,
-              final_price: cart.total_price,
-              special_conditions: sale_conditions === "normal" ? false : true,
-              products_ids: cart.products_ids,
-              ghests_count: ghest_count,
-            };
-          } else if (ghest_count === 0 && sale_kind === "ghesti") {
-            alert_err();
-          } else {
-            send_obj = {
-              source: sale_chanel,
-              has_beyane: false,
-              buyer_phone_number: selected_user.phone_number,
-              staff_id: user.id,
-              discount_percent: percent ? parseInt(percent) : null,
-              final_price: cart.total_price,
-              special_conditions: sale_conditions === "normal" ? false : true,
-              products_ids: cart.products_ids,
-              ghests_count: 0,
-            };
-          }
-        } else {
-          if (beyane_amount && day && month && year) {
-            if (beyane_amount >= cart.total_price) {
-              alert("مبلغ بیعانه بیشتر از قیمت کل است");
-            } else if (month > 6 && day === 31) {
-              alert("ماه انتخابی حداکثر ۳۰ روز دارد");
-            } else if (check_past_dates()) {
-              send_obj = {
-                source: sale_chanel,
-                has_beyane: true,
-                buyer_phone_number: selected_user.phone_number,
-                staff_id: user.id,
-                discount_percent: percent ? parseInt(percent) : null,
-                final_price: cart.total_price,
-                special_conditions: sale_conditions === "normal" ? false : true,
-                products_ids: cart.products_ids,
-                beyane_amount: parseInt(beyane_amount),
-                deadline: [year, month, day],
-              };
-            }
-          } else {
-            alert_err();
-          }
-        }
-      } else {
-        alert_err();
-      }
+    // if (sale_kind) {
+    //   if (
+    //     cart &&
+    //     (percent || percent === 0) &&
+    //     sale_conditions &&
+    //     sale_chanel
+    //   ) {
+    //     if (sale_kind !== "beyane") {
+    //       if (ghest_count !== 0 && sale_kind === "ghesti") {
+    //         send_obj = {
+    //           source: sale_chanel,
+    //           has_beyane: false,
+    //           buyer_phone_number: selected_user.phone_number,
+    //           staff_id: user.id,
+    //           discount_percent: percent ? parseInt(percent) : null,
+    //           final_price: cart.total_price,
+    //           special_conditions: sale_conditions === "normal" ? false : true,
+    //           products_ids: cart.products_ids,
+    //           ghests_count: ghest_count,
+    //         };
+    //       } else if (ghest_count === 0 && sale_kind === "ghesti") {
+    //         alert_err();
+    //       } else {
+    //         send_obj = {
+    //           source: sale_chanel,
+    //           has_beyane: false,
+    //           buyer_phone_number: selected_user.phone_number,
+    //           staff_id: user.id,
+    //           discount_percent: percent ? parseInt(percent) : null,
+    //           final_price: cart.total_price,
+    //           special_conditions: sale_conditions === "normal" ? false : true,
+    //           products_ids: cart.products_ids,
+    //           ghests_count: 0,
+    //         };
+    //       }
+    //     } else {
+    //       if (beyane_amount && day && month && year) {
+    //         if (beyane_amount >= cart.total_price) {
+    //           alert("مبلغ بیعانه بیشتر از قیمت کل است");
+    //         } else if (month > 6 && day === 31) {
+    //           alert("ماه انتخابی حداکثر ۳۰ روز دارد");
+    //         } else if (check_past_dates()) {
+    //           send_obj = {
+    //             source: sale_chanel,
+    //             has_beyane: true,
+    //             buyer_phone_number: selected_user.phone_number,
+    //             staff_id: user.id,
+    //             discount_percent: percent ? parseInt(percent) : null,
+    //             final_price: cart.total_price,
+    //             special_conditions: sale_conditions === "normal" ? false : true,
+    //             products_ids: cart.products_ids,
+    //             beyane_amount: parseInt(beyane_amount),
+    //             deadline: [year, month, day],
+    //           };
+    //         }
+    //       } else {
+    //         alert_err();
+    //       }
+    //     }
+    //   } else {
+    //     alert_err();
+    //   }
+    // }
+    if (sale_chanel && sale_conditions && cart && new_sale_data.length !== 0) {
+      send_obj = {
+        source: sale_chanel,
+        buyer_phone_number: selected_user.phone_number,
+        staff_id: user.id,
+        special_conditions: sale_conditions === "normal" ? false : true,
+        products_ids: cart.products_ids,
+        final_price: calculate_final_price(),
+        discount_percent:
+          100 - (calculate_final_price() / cart.total_price) * 100,
+        pay_amounts: make_pay_amounts(),
+      };
+      // console.log(send_obj);
     } else {
       alert_err();
     }
@@ -233,9 +286,12 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
   const send_data = (send_obj) => {
     set_pause(true);
     axios
-      .post(urls.sale, send_obj)
+      // .post(urls.sale, send_obj)
+      .post(urls.new_sale, send_obj)
       .then((res) => {
         const { result, response, error } = res.data;
+        // console.log(res.data);
+        // console.log(response);
         if (result) {
           set_sale(response);
           set_disable_part(true);
@@ -284,7 +340,9 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
     >
       <div className="box-style shop-col">
         <div className="section-header">
-          <span className="header-title">همه محصولات </span>
+          <span className="header-title" onClick={make_pay_amounts}>
+            همه محصولات{" "}
+          </span>
           <span className="header-input-place">
             <img src={magnifier} alt="جستجو" />
             <input
@@ -365,13 +423,59 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
         <div className="section-header">
           <span className="header-title">محصولات انتخاب شده</span>
         </div>
+        <div className="choose-type">
+          <button
+            onClick={() => {
+              set_new_kind("c");
+            }}
+            className={
+              new_kind !== "c" ? "select-type-btn" : "select-type-btn active"
+            }
+          >
+            نقدی
+          </button>
+          <button
+            onClick={() => {
+              set_new_kind("2g");
+            }}
+            className={
+              new_kind !== "2g" ? "select-type-btn" : "select-type-btn active"
+            }
+          >
+            ۲ قسط
+          </button>
+          <button
+            onClick={() => {
+              set_new_kind("3g");
+            }}
+            className={
+              new_kind !== "3g" ? "select-type-btn" : "select-type-btn active"
+            }
+          >
+            ۳ قسط
+          </button>
+          <button
+            onClick={() => {
+              set_new_kind("4g");
+            }}
+            className={
+              new_kind !== "4g" ? "select-type-btn" : "select-type-btn active"
+            }
+          >
+            ۴ قسط
+          </button>
+        </div>
         <div className="cart-items">
           {cart
-            ? cart.products.map((p) => (
+            ? cart.products.map((p, i) => (
                 <CartProduct
                   key={p.product_id}
                   handle_cart={handle_cart}
                   p={p}
+                  count={new_kind}
+                  set_new_sale_data={set_new_sale_data}
+                  sale_data={new_sale_data}
+                  un_official_id={i++}
                 />
               ))
             : "محصولی انتخاب نشده است"}
@@ -385,10 +489,16 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
             تومان
           </span>
         </div>
+        <div className="total-price-wrapper">
+          <span className="total-price-label">قیمت نهایی</span>
+          <span className="total-price-num">
+            {split_in_three(convert_to_persian(calculate_final_price()))} تومان
+          </span>
+        </div>
         <span className="sale-input-wrapper discount-wrapper">
           <span className="sale-input-label">درصد تخفیف</span>
-          <span className="input-label-span discount-input-span">
-            <input
+          <span className="input-label-span discount-input-span calculated-discount">
+            {/* <input
               type="range"
               step={5}
               max={100}
@@ -402,7 +512,12 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
                 {convert_to_persian(percent) || convert_to_persian(0)}{" "}
               </span>
               <span className="max-value">{convert_to_persian(100)}</span>
-            </span>
+            </span> */}
+            {convert_to_persian(
+              100 -
+                Math.ceil((calculate_final_price() / cart.total_price) * 100)
+            )}{" "}
+            درصد
           </span>
         </span>
         <div className="custom-select-boxes-part">
@@ -485,7 +600,7 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
               )}
             </span>
           </div>
-          <div className="input-wrapper">
+          {/* <div className="input-wrapper">
             <span className="input-label">نوع فروش</span>
             <span className="input-span">
               <span
@@ -536,7 +651,7 @@ const SaleData = ({ selected_user, set_sale, set_products, products }) => {
                 <></>
               )}
             </span>
-          </div>
+          </div> */}
           {sale_kind === "ghesti" ? (
             <div className="input-wrapper">
               <span className="input-label">تعداد قسط</span>
